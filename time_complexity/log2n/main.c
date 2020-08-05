@@ -8,6 +8,8 @@ int main(int argc, char const *argv[])
         printf("%d\n", i);//log2N
     }
 
+    //2^0,2^1,2^3,...2^n
+
     //a^x=n
     //x=logan
     //x=log₂n
