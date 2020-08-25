@@ -22,6 +22,6 @@ int main(int argc, char const *argv[])
     {
         printf("%d\n", a[i]);
     }
-
+    
     return 0;
 }
