@@ -10,8 +10,8 @@
         "${file}",
         "-o",
         "${fileDirname}/${fileBasenameNoExtension}.exe",
-		"-lgdiplus",
-		"-mwindows"
+        "-lgdiplus",
+        "-mwindows"
       ],
       "options": {
         "cwd": "${workspaceFolder}"
