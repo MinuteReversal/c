@@ -59,8 +59,10 @@ void printArray(SqList list)
 
 int main(int argc, char const *argv[])
 {
-    SqList list = {0, 1, 2, 3, 4, 5, 6, 7, 8};
-    list.length = 8;
+    SqList list = {
+        .array = {0, 1, 2, 3, 4, 5, 6, 7, 8},
+        .length = 8,
+    };
 
     printArray(list);
     insertBefore(3, 9, &list);
