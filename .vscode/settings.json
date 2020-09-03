@@ -1,3 +1,17 @@
 {
-    "C_Cpp.experimentalFeatures": "Enabled"
+    "C_Cpp.experimentalFeatures": "Enabled",
+    "files.associations": {
+        "*.tcc": "c",
+        "istream": "c",
+        "new": "c",
+        "ostream": "c",
+        "sstream": "c",
+        "streambuf": "c",
+        "array": "c",
+        "functional": "c",
+        "random": "c",
+        "type_traits": "c",
+        "string": "c",
+        "utility": "c"
+    }
 }
