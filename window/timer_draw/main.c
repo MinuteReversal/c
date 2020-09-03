@@ -6,16 +6,6 @@
 
 int x = 0;
 
-//https://docs.microsoft.com/en-us/windows/win32/gdi/creating-colored-pens-and-brushes
-void OnPaint(HDC hdc, HWND hWnd)
-{
-    HPEN hPen = CreatePen(PS_DOT, 1, RGB(255, 0, 0));
-    SelectObject(hdc, hPen);
-    MoveToEx(hdc, 0, 200, (LPPOINT)NULL);
-    LineTo(hdc, x, 200);
-    DeleteObject(hPen);
-}
-
 //https://docs.microsoft.com/en-us/windows/win32/winmsg/using-timers#related-topics
 void CALLBACK OnTimerProc(
     HWND hWnd,
@@ -23,13 +13,9 @@ void CALLBACK OnTimerProc(
     UINT_PTR idTimer,
     DWORD dwTime)
 {
-    x += 10;
+    x += 1;
     HDC hdc = GetDC(hWnd);
-    HPEN hPen = CreatePen(PS_DOT, 1, RGB(255, 0, 0));
-    SelectObject(hdc, hPen);
-    MoveToEx(hdc, 0, 200, (LPPOINT)NULL);
-    LineTo(hdc, x, 200);
-    DeleteObject(hPen);
+    SetPixel(hdc, x, 200, RGB(255, 0, 0));
     ReleaseDC(hWnd, hdc);
 }
 
@@ -65,7 +51,7 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdS
         NULL       // Additional application data
     );
 
-    SetTimer(hWnd, ID_TIMER1, 1 * 1000, OnTimerProc);
+    SetTimer(hWnd, ID_TIMER1, 1000 / 60, OnTimerProc);
 
     if (hWnd == NULL)
     {
@@ -93,19 +79,12 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         PostQuitMessage(0);
     case WM_TIMER:
     {
-        RECT rc;
-        GetWindowRect(hWnd, &rc);
-        if (x < rc.right)
-        {
-            x += 10;
-        }
     }
     case WM_PAINT:
     {
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
         FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
-        OnPaint(hdc, hWnd);
         EndPaint(hWnd, &ps);
     }
     default:
