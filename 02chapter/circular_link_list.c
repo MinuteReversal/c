@@ -120,7 +120,7 @@ void removeByValue(PNode head, int value)
     }
 }
 
-void printLinkedList(PNode head)
+void printLinkList(PNode head)
 {
     for (PNode node = head; node != NULL; node = node->next)
     {
@@ -133,14 +133,14 @@ int main(int argc, char const *argv[])
 {
     PNode list = init(10);
     printf("#%p\n", list);
-    printLinkedList(list);
+    printLinkList(list);
 
     PNode node3 = findByIndex(list, 2);
     add(node3, 888);
-    printLinkedList(list);
+    printLinkList(list);
 
     removeByValue(list, 8);
-    printLinkedList(list);
+    printLinkList(list);
 
     clear(list);
 
