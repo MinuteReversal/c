@@ -13,16 +13,19 @@ typedef struct _SqList
  */
 int insertBefore(int index, int value, SqList *list)
 {
-    int i;
     //插入位置超过范围
     if (index > list->length || index < 1)
+    {
         return 0;
+    }
 
     //向后搬砖
-    for (i = list->length; i >= index; i--)
+    for (int i = list->length; i >= index; i--)
+    {
         list->array[i + 1] = list->array[i];
+    }
 
-    list->array[i + 1] = value;
+    list->array[list->length + 1] = value;
     list->length++;
 
     return 1;
@@ -31,15 +34,18 @@ int insertBefore(int index, int value, SqList *list)
 /**
  * 删除指定索引删除元素
  */
-int delete (int index, SqList *list)
+int removeAt(int index, SqList *list)
 {
-    int i;
     if (index < 1 || index > list->length)
+    {
         return 0;
+    }
 
     //向前搬砖
-    for (i = index + 1; i < list->length; i++)
+    for (int i = index + 1; i < list->length; i++)
+    {
         list->array[i - 1] = list->array[i];
+    }
 
     list->length--;
     return 1;
@@ -65,7 +71,7 @@ int main(int argc, char const *argv[])
     printArray(list);
     insertBefore(3, 9, &list);
     printArray(list);
-    delete (4, &list);
+    removeAt(4, &list);
     printArray(list);
     return 0;
 }

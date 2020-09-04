@@ -12,6 +12,10 @@
         "random": "c",
         "type_traits": "c",
         "string": "c",
-        "utility": "c"
+        "utility": "c",
+        "deque": "c",
+        "vector": "c",
+        "initializer_list": "c",
+        "tuple": "c"
     }
 }
