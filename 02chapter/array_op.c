@@ -13,36 +13,34 @@ typedef struct _SqList
  */
 int insertBefore(int index, int value, SqList *list)
 {
-    int length = list->length; //有元素的个数
-    int *array = list->array;  //数组指针
     int i;
     //插入位置超过范围
-    if (index > length || index < 1)
+    if (index > list->length || index < 1)
         return 0;
 
     //向后搬砖
-    for (i = length; i >= index; i--)
-        array[i + 1] = array[i];
+    for (i = list->length; i >= index; i--)
+        list->array[i + 1] = list->array[i];
 
-    array[i + 1] = value;
+    list->array[i + 1] = value;
     list->length++;
 
     return 1;
 }
 
+/**
+ * 删除指定索引删除元素
+ */
 int delete (int index, SqList *list)
 {
-    int length = list->length;
-    int *array = list->array;
     int i;
-    if (index < 1 || index > length)
+    if (index < 1 || index > list->length)
         return 0;
 
     //向前搬砖
-    for (i = index + 1; i < length; i++)
-    {
-        array[i - 1] = array[i];
-    }
+    for (i = index + 1; i < list->length; i++)
+        list->array[i - 1] = list->array[i];
+
     list->length--;
     return 1;
 }
