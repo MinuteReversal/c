@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <malloc.h>
 
+/*
+* 定义节点类型
+*/
 typedef struct _Node
 {
     int value;
@@ -8,31 +11,37 @@ typedef struct _Node
 } Node, *PNode;
 
 /**
- * 初始化
+ * 向后添加一个元素
  */
-void init(PNode *head, int length)
-{
-    PNode nextNode = NULL;
-    for (int i = length; i > 0; i--)
-    {
-        PNode pNode = (PNode)malloc(sizeof(Node));
-        pNode->value = i;
-        pNode->next = nextNode;
-        nextNode = pNode;
-    }
-    *head = nextNode;
-}
-
-/**
- * 向最最添加一个元素
- */
-PNode append(PNode node, int value)
+PNode add(PNode node, int value)
 {
     PNode nextNode = (PNode)malloc(sizeof(Node));
     nextNode->value = value;
     nextNode->next = NULL;
-    node->next = nextNode;
+    if (node)
+    {
+        if (node->next)
+        {
+            nextNode->next = node->next;
+        }
+
+        node->next = nextNode;
+    }
     return nextNode;
+}
+
+/*
+* 初始化
+*/
+PNode init(int length)
+{
+    PNode head = add(NULL, 0);
+    PNode node = head;
+    for (int i = 1; i < length; i++)
+    {
+        node = add(node, i);
+    }
+    return head;
 }
 
 /**
@@ -64,6 +73,23 @@ PNode findByValue(PNode head, int value)
 }
 
 /**
+ * 通过索引查找
+ */
+PNode findByIndex(PNode head, int index)
+{
+    PNode node = head;
+    for (int i = 0; node; i++, node = node->next)
+    {
+        if (index == i)
+        {
+            return node;
+        }
+    }
+
+    return NULL;
+}
+
+/**
  * 清除所有节点
  */
 void clear(PNode head)
@@ -74,6 +100,23 @@ void clear(PNode head)
         PNode next = node->next;
         free(node);
         node = next;
+    }
+}
+
+/**
+ * 删除指定值的节点
+ */
+void removeByValue(PNode head, int value)
+{
+    for (PNode node = head; node; node = node->next)
+    {
+        PNode nextNode = node->next;
+        if (nextNode->value == value)
+        {
+            node->next = nextNode->next;
+            free(nextNode);
+            break;
+        }
     }
 }
 
@@ -88,16 +131,18 @@ void printLinkedList(PNode head)
 
 int main(int argc, char const *argv[])
 {
-    PNode head = NULL;
-    PNode end = NULL;
+    PNode list = init(10);
+    printf("#%p\n", list);
+    printLinkedList(list);
 
-    init(&head, 10);
-    printf("#%p\n", head);
-    printLinkedList(head);
-    end = getEnd(head);
-    append(end, 11);
-    printLinkedList(head);
-    clear(head);
+    PNode node3 = findByIndex(list, 2);
+    add(node3, 888);
+    printLinkedList(list);
+
+    removeByValue(list, 8);
+    printLinkedList(list);
+
+    clear(list);
 
     return 0;
 }
