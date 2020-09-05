@@ -8,7 +8,15 @@ typedef struct _Node
 {
     int value;
     struct _Node *next;
-} Node, *PNode;
+}
+/**
+*节点类型
+*/
+Node,
+/**
+ * 节点指针类型
+ */
+*PNode;
 
 /**
  * 向后添加一个元素
@@ -144,11 +152,21 @@ void removeByValue(PNode head, int value)
     }
 }
 
+/**
+* 打印单个节点的值
+* @param node 指定节点
+* @return 无 
+*/
 void printNode(PNode node)
 {
     printf("%d,", *node);
 }
 
+/**
+* 打印链表里的每一个值
+* @param head 表头元素
+* @return 无 
+*/
 void printLinkList(PNode head)
 {
     for (PNode node = head; node != NULL; node = node->next)
@@ -160,6 +178,9 @@ void printLinkList(PNode head)
 
 /**
  * 拼接两个链表
+ * @param listA 表A
+ * @param listB 表B
+ * @return 无
  */
 void connect(PNode listA, PNode listB)
 {
