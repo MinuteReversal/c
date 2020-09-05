@@ -13,7 +13,7 @@ typedef struct _Node
 /**
  * 向后添加一个元素
  */
-PNode add(PNode node, int value)
+PNode insertAfter(PNode node, int value)
 {
     PNode nextNode = (PNode)malloc(sizeof(Node));
     nextNode->value = value;
@@ -30,16 +30,19 @@ PNode add(PNode node, int value)
     return nextNode;
 }
 
-/*
+/**
 * 初始化
+* @param length 表长度
+* @param baseValue 起始值
+* @return 表头节点地址
 */
-PNode init(int length)
+PNode init(int length, int baseValue)
 {
-    PNode head = add(NULL, 0);
+    PNode head = insertAfter(NULL, baseValue);
     PNode node = head;
-    for (int i = 1; i < length; i++)
+    for (int i = baseValue + 1; i < length + baseValue; i++)
     {
-        node = add(node, i);
+        node = insertAfter(node, i);
     }
     return head;
 }
@@ -155,20 +158,23 @@ void printLinkList(PNode head)
     printf("\n");
 }
 
+/**
+ * 拼接两个链表
+ */
+void connect(PNode listA, PNode listB)
+{
+    PNode listAEnd = getEnd(listA);
+    listAEnd->next = listB;
+}
+
 int main(int argc, char const *argv[])
 {
-    PNode list = init(10);
-    printf("#%p\n", list);
-    printLinkList(list);
+    PNode list1 = init(10, 0);
+    PNode list2 = init(10, 10);
 
-    PNode node3 = findByIndex(list, 2);
-    add(node3, 888);
-    printLinkList(list);
+    connect(list1, list2);
+    printLinkList(list1);
 
-    removeByValue(list, 8);
-    printLinkList(list);
-
-    clear(list);
-
+    clear(list1);
     return 0;
 }
