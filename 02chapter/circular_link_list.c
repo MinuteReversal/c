@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <malloc.h>
 
-/*
+/**
 * 定义节点类型
 */
 typedef struct _Node
@@ -11,21 +11,24 @@ typedef struct _Node
 } Node, *PNode;
 
 /**
- * 向后添加一个元素
+ * 向传入的节点后面添加一个元素
+ * @param previous 前面一个元素
+ * @param value 值
+ * @return 创建的节点
  */
-PNode add(PNode node, int value)
+PNode add(PNode previous, int value)
 {
     PNode nextNode = (PNode)malloc(sizeof(Node));
     nextNode->value = value;
     nextNode->next = NULL;
-    if (node)
+    if (previous)
     {
-        if (node->next)
+        if (previous->next)
         {
-            nextNode->next = node->next;
+            nextNode->next = previous->next;
         }
 
-        node->next = nextNode;
+        previous->next = nextNode;
     }
     return nextNode;
 }
@@ -35,12 +38,15 @@ PNode add(PNode node, int value)
 */
 PNode init(int length)
 {
-    PNode head = add(NULL, 0);
-    PNode node = head;
+    PNode head = add(NULL, 0); //生成头元素
+    PNode end = head;
+    //生成后面的元素
     for (int i = 1; i < length; i++)
     {
-        node = add(node, i);
+        end = add(end, i);
     }
+    //让头尾相接
+    end->next = head;
     return head;
 }
 
@@ -50,7 +56,7 @@ PNode init(int length)
 PNode getEnd(PNode head)
 {
     PNode node = head;
-    while (node->next)
+    while (node->next != head)
     {
         node = node->next;
     }
@@ -62,7 +68,7 @@ PNode getEnd(PNode head)
  */
 PNode findByValue(PNode head, int value)
 {
-    for (PNode node = head; node != NULL; node = node->next)
+    for (PNode node = head; node->next != head; node = node->next)
     {
         if (value == node->value)
         {
@@ -78,7 +84,7 @@ PNode findByValue(PNode head, int value)
 PNode findByIndex(PNode head, int index)
 {
     PNode node = head;
-    for (int i = 0; node; i++, node = node->next)
+    for (int i = 0; node->next != head; i++, node = node->next)
     {
         if (index == i)
         {
@@ -94,12 +100,11 @@ PNode findByIndex(PNode head, int index)
  */
 void clear(PNode head)
 {
-    PNode node;
-    while (node)
+    for (PNode node = head; node->next != head;)
     {
         PNode next = node->next;
-        free(node);
-        node = next;
+        node->next = next->next;
+        free(next);
     }
 }
 
@@ -122,7 +127,7 @@ void removeByValue(PNode head, int value)
 
 void printLinkList(PNode head)
 {
-    for (PNode node = head; node != NULL; node = node->next)
+    for (PNode node = head; node->next != head; node = node->next)
     {
         printf("%d,", node->value);
     }

@@ -94,7 +94,7 @@ PNode findByIndex(PNode head, int index)
  */
 void clear(PNode head)
 {
-    PNode node;
+    PNode node = head;
     while (node)
     {
         PNode next = node->next;
