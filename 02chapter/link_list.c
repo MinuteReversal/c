@@ -13,7 +13,7 @@ typedef struct _Node
 /**
  * 向后添加一个元素
  */
-PNode add(PNode node, int value)
+PNode insertAfter(PNode node, int value)
 {
     PNode nextNode = (PNode)malloc(sizeof(Node));
     nextNode->value = value;
@@ -35,11 +35,11 @@ PNode add(PNode node, int value)
 */
 PNode init(int length)
 {
-    PNode head = add(NULL, 0);
+    PNode head = insertAfter(NULL, 0);
     PNode node = head;
     for (int i = 1; i < length; i++)
     {
-        node = add(node, i);
+        node = insertAfter(node, i);
     }
     return head;
 }
@@ -87,6 +87,44 @@ PNode findByIndex(PNode head, int index)
     }
 
     return NULL;
+}
+
+/**
+* 删除指定节点后的节点
+* 
+* @param head 列表 
+* @param priorNode 指定的节点
+* @return 无
+*/
+void removeAfter(PNode head, PNode priorNode)
+{
+    PNode currentNode = priorNode->next;      //要删除的节点
+    PNode removeNodeNext = currentNode->next; //要删除的节点的下一个节点
+
+    if (currentNode)
+    {
+        free(currentNode); //删除当前节点
+    }
+    if (removeNodeNext)
+    {
+        priorNode->next = removeNodeNext;
+    }
+}
+
+/**
+ * 删除指定值的节点
+ */
+void removeByValue(PNode head, int value)
+{
+    for (PNode node = head; node; node = node->next)
+    {
+        PNode nextNode = node->next;
+        if (nextNode->value == value)
+        {
+            removeAfter(head, node);
+            break;
+        }
+    }
 }
 
 /**
@@ -162,7 +200,7 @@ int main(int argc, char const *argv[])
     printLinkList(list);
 
     PNode node3 = findByIndex(list, 2);
-    add(node3, 888);
+    insertAfter(node3, 888);
     printLinkList(list);
 
     removeByValue(list, 8);

@@ -16,7 +16,7 @@ typedef struct _Node
  * @param value 值
  * @return 创建的节点
  */
-PNode add(PNode previous, int value)
+PNode insertAfter(PNode previous, int value)
 {
     PNode nextNode = (PNode)malloc(sizeof(Node));
     nextNode->value = value;
@@ -38,12 +38,12 @@ PNode add(PNode previous, int value)
 */
 PNode init(int length)
 {
-    PNode head = add(NULL, 0); //生成头元素
+    PNode head = insertAfter(NULL, 0); //生成头元素
     PNode end = head;
     //生成后面的元素
     for (int i = 1; i < length; i++)
     {
-        end = add(end, i);
+        end = insertAfter(end, i);
     }
     //让头尾相接
     end->next = head;
@@ -141,7 +141,7 @@ int main(int argc, char const *argv[])
     printLinkList(list);
 
     PNode node3 = findByIndex(list, 2);
-    add(node3, 888);
+    insertAfter(node3, 888);
     printLinkList(list);
 
     removeByValue(list, 8);
