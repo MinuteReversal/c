@@ -120,6 +120,24 @@ void removeByValue(PNode head, int value)
     }
 }
 
+/**
+* 删除指定节点后的节点
+* 
+* @param head 列表 
+* @param priorNode 指定的节点
+* @return 无
+*/
+void removeAfter(PNode head, PNode priorNode)
+{
+    PNode removeNode = priorNode->next;      //要删除的节点
+    PNode removeNodeNext = removeNode->next; //要删除的节点的下一个节点
+
+    if (removeNode)
+    {
+        
+    }
+}
+
 void printNode(PNode node)
 {
     printf("%d,", *node);
