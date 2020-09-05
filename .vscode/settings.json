@@ -16,6 +16,8 @@
         "deque": "c",
         "vector": "c",
         "initializer_list": "c",
-        "tuple": "c"
+        "tuple": "c",
+        "limits": "c",
+        "cmath": "c"
     }
 }

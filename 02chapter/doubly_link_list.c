@@ -6,28 +6,35 @@
 */
 typedef struct _Node
 {
+    //前驱
+    struct _Node *prior;
+    //值
     int value;
+    //后继
     struct _Node *next;
 } Node, *PNode;
 
 /**
  * 向后添加一个元素
  */
-PNode add(PNode node, int value)
+PNode insertAfter(PNode priorNode, int value)
 {
-    PNode nextNode = (PNode)malloc(sizeof(Node));
-    nextNode->value = value;
-    nextNode->next = NULL;
-    if (node)
+    PNode currentNode = (PNode)malloc(sizeof(Node)); //当前节点
+    currentNode->value = value;
+    currentNode->next = NULL;
+    currentNode->prior = NULL;
+    if (priorNode)
     {
-        if (node->next)
+        currentNode->prior = priorNode; //设置前驱
+
+        if (priorNode->next)
         {
-            nextNode->next = node->next;
+            currentNode->next = priorNode->next;
         }
 
-        node->next = nextNode;
+        priorNode->next = currentNode; //设置后继
     }
-    return nextNode;
+    return currentNode;
 }
 
 /*
@@ -35,11 +42,11 @@ PNode add(PNode node, int value)
 */
 PNode init(int length)
 {
-    PNode head = add(NULL, 0);
+    PNode head = insertAfter(NULL, 0);
     PNode node = head;
     for (int i = 1; i < length; i++)
     {
-        node = add(node, i);
+        node = insertAfter(node, i);
     }
     return head;
 }
@@ -106,15 +113,28 @@ void clear(PNode head)
 /**
  * 删除指定值的节点
  */
+
+/**
+ * 删除指定节点
+ */
+void removeNode(PNode node)
+{
+    PNode priorNode = node->prior;
+    PNode nextNode = node->next;
+    if (priorNode && nextNode)
+    {
+        priorNode->next = nextNode;
+        nextNode->prior = priorNode;
+    }
+}
+
 void removeByValue(PNode head, int value)
 {
     for (PNode node = head; node; node = node->next)
     {
-        PNode nextNode = node->next;
-        if (nextNode->value == value)
+        if (node->value == value)
         {
-            node->next = nextNode->next;
-            free(nextNode);
+            removeNode(node);
             break;
         }
     }
@@ -122,7 +142,7 @@ void removeByValue(PNode head, int value)
 
 void printNode(PNode node)
 {
-    printf("%d,", *node);
+    printf("%d,", node->value);
 }
 
 void printLinkList(PNode head)
@@ -141,7 +161,7 @@ int main(int argc, char const *argv[])
     printLinkList(list);
 
     PNode node3 = findByIndex(list, 2);
-    add(node3, 888);
+    insertAfter(node3, 888);
     printLinkList(list);
 
     removeByValue(list, 8);
