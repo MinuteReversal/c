@@ -24,13 +24,13 @@ PMatrix init(int rows, int columns)
 
     for (size_t i = 0; i < cells; i++)
     {
-        matrix->table[i] = i;
+        matrix->table[i] = i + 1;
     }
 
     return matrix;
 }
 
-void print(PMatrix matrix)
+void printMatrix(PMatrix matrix)
 {
     for (size_t i = 0; i < matrix->rows; i++)
     {
@@ -47,7 +47,7 @@ void print(PMatrix matrix)
 * @param matrix 矩阵 
 * @return 无
 */
-void dispose(PMatrix matrix)
+void disposeMatrix(PMatrix matrix)
 {
     free(matrix->table);
     free(matrix);
@@ -56,7 +56,7 @@ void dispose(PMatrix matrix)
 int main(int argc, char const *argv[])
 {
     PMatrix m = init(5, 5);
-    print(m);
-    dispose(m);
+    printMatrix(m);
+    disposeMatrix(m);
     return 0;
 }
