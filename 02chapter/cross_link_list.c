@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <malloc.h>
 
-typedef struct _TriNode
+typedef struct _CrossNode
 {
     //行号
     int row;
@@ -16,7 +16,20 @@ typedef struct _TriNode
     int column;
     //值
     int value;
-} CrossLinkNode, *CrossLinkNode;
+    //同列下一个非零元素节点
+    struct _CrossNode *down;
+    //同行下一个非零元素结点
+    struct _CrossNode *right;
+} CrossNode, *PCrossNode;
+
+typedef struct _CrossMatrix
+{
+    PCrossNode *rowHead; //数组
+    int rows;
+    PCrossNode *columnHead; //数组
+    int colums;
+
+} CrossMatrix, *PCrossMatrix;
 
 typedef struct _Matrix
 {
@@ -82,43 +95,166 @@ void disposeMatrix(PMatrix matrix)
 }
 
 /**
-* 保存下三角矩阵
+* 创建单个十字交叉表节点
+* @return 节点 
+*/
+PCrossNode createCrossNode()
+{
+    return (PCrossNode)malloc(sizeof(CrossNode));
+}
+
+/**
+ * 插入节点到列头上
+ */
+void insertInColumn(PCrossNode *columnHead, PCrossNode insertNode)
+{
+    PCrossNode nextNode = columnHead[insertNode->column];
+    while (nextNode)
+    {
+        if (nextNode->down == NULL)
+        {
+            //接在后面
+            nextNode->down = insertNode;
+            break;
+        }
+        else if (nextNode->down->row > insertNode->row)
+        { //接在两个节点中间
+            insertNode->down = nextNode->down;
+            nextNode->down = insertNode;
+            break;
+        }
+
+        nextNode = nextNode->down;
+    }
+}
+
+/**
+ * 在行上插入节点
+ */
+void inserInRow(PCrossNode *rowHead, PCrossNode insertNode)
+{
+    PCrossNode nextNode = rowHead[insertNode->row];
+    while (nextNode)
+    {
+        if (nextNode->right == NULL)
+        {
+            //接在后面
+            nextNode->right = insertNode;
+            break;
+        }
+        else if (nextNode->right->column > insertNode->column)
+        { //接在两个节点中间
+            insertNode->right = nextNode->right;
+            nextNode->right = insertNode;
+            break;
+        }
+
+        nextNode = nextNode->right;
+    }
+}
+
+PCrossNode *createRowHead(int length)
+{
+    PCrossNode *head = (PCrossNode *)malloc(sizeof(PCrossNode) * length);
+    for (size_t i = 0; i < length; i++)
+    {
+        PCrossNode node = createCrossNode();
+        node->column = -1;
+        node->row = i;
+        node->down = NULL;
+        node->right = NULL;
+        head[i] = node;
+    }
+    return head;
+}
+
+PCrossNode *createColumnHead(int length)
+{
+    PCrossNode *head = (PCrossNode *)malloc(sizeof(PCrossNode) * length);
+    for (size_t i = 0; i < length; i++)
+    {
+        PCrossNode node = createCrossNode();
+        node->column = i;
+        node->row = -1;
+        node->down = NULL;
+        node->right = NULL;
+        head[i] = node;
+    }
+    return head;
+}
+
+/**
+* 保存下到十字链表节点
 * @param matrix 矩阵
 * @param count 数据长度
 * @return 数组
 */
-CrossLinkNode saveToTriNodeArray(PMatrix matrix, int *count)
+PCrossMatrix saveToCrossNodeLinkList(PMatrix matrix)
 {
-    //n(n+1)/2;n为行总数
-    const size_t length = matrix->rows * (matrix->rows + 1) / 2; //非零元素个数
-    CrossLinkNode a = (CrossLinkNode)malloc(sizeof(CrossLinkNode) * length);     //创建一个数组
-    int triangleIndex = 0;
+    PCrossMatrix crossMatrix = (PCrossMatrix)malloc(sizeof(CrossMatrix));
+    crossMatrix->colums = matrix->columns;
+    crossMatrix->rows = matrix->rows;
+    crossMatrix->rowHead = createRowHead(matrix->rows);
+    crossMatrix->columnHead = createColumnHead(matrix->columns);
+
     for (size_t matrixIndex = 0; matrixIndex < matrix->rows * matrix->columns; matrixIndex++)
     {
         const int value = *(matrix->table + matrixIndex);
         if (0 != value)
         {
-            CrossLinkNode triNode = (a + triangleIndex++);
-            triNode->row = matrixIndex / matrix->columns;
-            triNode->column = matrixIndex - triNode->row * matrix->columns;
-            triNode->value = value;
+            PCrossNode node = createCrossNode();
+            node->row = matrixIndex / matrix->columns;
+            node->column = matrixIndex - node->row * matrix->columns;
+            node->value = value;
+            node->down = NULL;
+            node->right = NULL;
+            inserInRow(crossMatrix->rowHead, node);
+            insertInColumn(crossMatrix->columnHead, node);
         }
     }
-    *count = length;
-    return a;
+    return crossMatrix;
 }
 
 /**
-* 打印一维数组
+* 打印十字链表
 * @param array 数组 
-* @param lenght 数组长度
 * @return 无
 */
-void printTriNodeArray(CrossLinkNode triNode, int length)
+void printCrossMatrixByColum(PCrossMatrix matrix)
 {
-    for (size_t i = 0; i < length; i++)
+    for (size_t i = 0; i < matrix->rows; i++)
     {
-        printf("(%d,%d,%d),", triNode[i]);
+        PCrossNode nextNode = matrix->columnHead[i];
+        while (nextNode)
+        {
+            if (nextNode->row > -1)
+            {
+                printf("(%d,%d,%d),", *nextNode);
+            }
+            nextNode = nextNode->down;
+        }
+    }
+    printf("\n");
+}
+
+/**
+* 打印十字链表
+* @param array 数组 
+* @return 无
+*/
+void printCrossMatrixByRow(PCrossMatrix matrix)
+{
+    for (size_t i = 0; i < matrix->colums; i++)
+    {
+        PCrossNode nextNode = matrix->rowHead[i];
+        while (nextNode)
+        {
+            if (nextNode->column > -1)
+            {
+                printf("(%d,%d,%d),", *nextNode);
+            }
+            nextNode = nextNode->right;
+        }
     }
     printf("\n");
 }
@@ -128,9 +264,11 @@ int main(int argc, char const *argv[])
     PMatrix matrix = initMatix(5, 5);
     printMatrix(matrix);
 
-    int lenght;
-    CrossLinkNode a = saveToTriNodeArray(matrix, &lenght);
-    printTriNodeArray(a, lenght);
+    PCrossMatrix crossMatrix = saveToCrossNodeLinkList(matrix);
+    printf("=====row======\n");
+    printCrossMatrixByRow(crossMatrix);
+    printf("=====colum======\n");
+    printCrossMatrixByColum(crossMatrix);
 
     return 0;
 }
