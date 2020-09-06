@@ -148,10 +148,22 @@ PNode add(PNode headA, PNode headB)
     PNode nodeA = headA;                    //表A中的节点
     PNode nodeB = headB;                    //表B中的节点
 
-    while (nodeA && nodeB)
+    while (nodeA || nodeB)
     {
+        //A表还有节点
+        if (nodeA && NULL == nodeB)
+        {
+            nextR = insertAfter(nextR, nodeA->coef, nodeA->exp);
+            nodeA = nodeA->next;
+        }
+        //B表还有节点
+        else if (nodeB && NULL == nodeA)
+        {
+            nextR = insertAfter(nextR, nodeB->coef, nodeB->exp);
+            nodeB = nodeB->next;
+        }
         //指数相同
-        if (nodeA->exp == nodeB->exp)
+        else if (nodeA->exp == nodeB->exp)
         {
             int coef = nodeA->coef + nodeB->coef; //计算相加后的系数
             if (coef != 0)
@@ -168,7 +180,7 @@ PNode add(PNode headA, PNode headB)
             nodeA = nodeA->next;
         }
         //指数小的nodeB
-        else
+        else if (nodeB->exp < nodeA->exp)
         {
             nextR = insertAfter(nextR, nodeB->coef, nodeB->exp);
             nodeB = nodeB->next;
