@@ -13,7 +13,7 @@ typedef struct _Matrix
 * @param column 列总数
 * @return 矩阵
 */
-PMatrix init(int rows, int columns)
+PMatrix initMatix(int rows, int columns)
 {
     const size_t intSize = sizeof(int);
     const size_t cells = rows * columns;
@@ -55,7 +55,7 @@ void disposeMatrix(PMatrix matrix)
 
 int main(int argc, char const *argv[])
 {
-    PMatrix m = init(5, 5);
+    PMatrix m = initMatix(5, 5);
     printMatrix(m);
     disposeMatrix(m);
     return 0;

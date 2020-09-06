@@ -1,5 +1,5 @@
 /******************************************************************************
-* fileName    : matrix_up_trangle.c 
+* fileName    : matrix_up_triangle.c 
 * author      : 114233763@qq.com
 * date        : 2020-09-06 14:41:54
 * description : n阶下三角矩阵
@@ -19,7 +19,7 @@ typedef struct _Matrix
 * @param column 列总数
 * @return 矩阵
 */
-PMatrix init(int rows, int columns)
+PMatrix initMatix(int rows, int columns)
 {
     const size_t intSize = sizeof(int);
     const size_t cells = rows * columns;
@@ -94,6 +94,12 @@ int *saveToArray(PMatrix matrix, int *count)
     return a;
 }
 
+/**
+* 打印一维数组
+* @param array 数组 
+* @param lenght 数组长度
+* @return 无
+*/
 void printArray(int *array, int length)
 {
     for (size_t i = 0; i < length; i++)
@@ -103,14 +109,51 @@ void printArray(int *array, int length)
     printf("\n");
 }
 
+/**
+* 打印矩阵中的单个元素
+* @param matrix 矩阵
+* @param row 行号从0开始
+* @param column 列号从0开始
+* @return 值
+*/
+int findValueInMatrix(PMatrix matrix, int row, int column)
+{
+    return *(matrix->table + row * matrix->columns + column);
+}
+
+/**
+ * 通过行列从存储列表中找值
+ */
+int findValueInSavedArray(int *array, int row, int column)
+{
+    int k = row * (row - 1) / 2 + column;
+    return array[k];
+}
+
+/**
+* 打印值
+* @param value 值 
+* @return 无 
+*/
+void printInt(int value)
+{
+    printf("%d\n", value);
+}
+
 int main(int argc, char const *argv[])
 {
-    PMatrix m = init(5, 5);
+    PMatrix m = initMatix(5, 5);
     printMatrix(m);
+
+    int v = findValueInMatrix(m, 2, 2);
+    printInt(v);
 
     int aLength = 0;
     int *a = saveToArray(m, &aLength);
     printArray(a, aLength);
+
+    v = findValueInSavedArray(a, 2, 2);
+    printInt(v);
 
     disposeMatrix(m);
     return 0;
