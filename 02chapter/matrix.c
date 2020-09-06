@@ -3,53 +3,60 @@
 
 typedef struct _Matrix
 {
-    int row, column;
+    int rows, columns;
     int *table;
 } Matrix, *PMatrix;
+
 /**
 * 初始化矩阵
 * @param row 行总数
 * @param column 列总数
 * @return 矩阵
 */
-int *init(int rows, int columns)
+PMatrix init(int rows, int columns)
 {
-    const int intSize = sizeof(int);
-    int **a = (int **)malloc(sizeof(int *) * rows);
-    int count = 0;
-    for (size_t i = 0; i < rows; i++)
+    const size_t intSize = sizeof(int);
+    const size_t cells = rows * columns;
+    PMatrix matrix = (PMatrix)malloc(sizeof(Matrix));
+    matrix->rows = rows;
+    matrix->columns = columns;
+    matrix->table = (int *)malloc(intSize * cells);
+
+    for (size_t i = 0; i < cells; i++)
     {
-        a[i] = (int *)malloc(intSize * columns);
-        for (size_t j = 0; j < columns; j++)
-        {
-            *(a[i] + j) = count++;
-        }
+        matrix->table[i] = i;
     }
 
-    return *a;
+    return matrix;
 }
 
-void printMatrix(int *a, int rows, int columns)
+void print(PMatrix matrix)
 {
-    int intSize = sizeof(int);
-    for (size_t i = 0; i < rows; i++)
+    for (size_t i = 0; i < matrix->rows; i++)
     {
-        for (size_t j = 0; j < columns; j++)
+        for (size_t j = 0; j < matrix->columns; j++)
         {
-            printf("%d,", *(a + i * intSize + j));
+            printf("%5d,", *(matrix->table + i * matrix->columns + j));
         }
         printf("\n");
     }
 }
 
+/**
+* 释放矩阵
+* @param matrix 矩阵 
+* @return 无
+*/
+void dispose(PMatrix matrix)
+{
+    free(matrix->table);
+    free(matrix);
+}
+
 int main(int argc, char const *argv[])
 {
-    int a[3][4] = {
-        {1, 3, 5, 7},
-        {9, 11, 13, 15},
-        {17, 19, 21, 23},
-    };
-    printMatrix(*a, 3, 4);
-    printMatrix(init(5, 5), 5, 5);
+    PMatrix m = init(5, 5);
+    print(m);
+    dispose(m);
     return 0;
 }
