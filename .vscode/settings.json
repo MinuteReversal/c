@@ -20,5 +20,5 @@
         "limits": "c",
         "cmath": "c",
         "fstream": "c"
-    }
+    },
 }
