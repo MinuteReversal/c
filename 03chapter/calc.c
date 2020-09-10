@@ -19,11 +19,11 @@ P1\   |+|-|*|/|(|)|@|
 #define NUMBERS_LENGTH 10
 
 //数学符号
-const char symbols[SYMBOLS_LENGTH] = {'+', '-', '*', '/', '(', ')', '@'};
+char symbols[SYMBOLS_LENGTH] = {'+', '-', '*', '/', '(', ')', '@'};
 //数字符号
-const char numbers[NUMBERS_LENGTH] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+char numbers[NUMBERS_LENGTH] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 //运算符优先级
-const char precedence[SYMBOLS_LENGTH][SYMBOLS_LENGTH] = {
+char precedence[SYMBOLS_LENGTH][SYMBOLS_LENGTH] = {
     //p1\p2   +    -    *    /    (    )    @
     /* + */ {'>', '>', '<', '<', '<', '>', '>'},
     /* - */ {'>', '>', '<', '<', '<', '>', '>'},
@@ -88,19 +88,6 @@ PStackNode pop(PStackNode stack, int *value)
 }
 
 /**
-* 获取优先级
-* @param p1 操作符1
-* @param p2 操作符2
-* @return 索引 优先关系 >< =
-*/
-int getPrecedence(char p1, char p2)
-{
-    int p1Index = findIndexByChar(symbols, SYMBOLS_LENGTH, p1);
-    int p2Index = findIndexByChar(symbols, SYMBOLS_LENGTH, p2);
-    return findIndexByChar(symbols, SYMBOLS_LENGTH, precedence[p1Index][p2Index]);
-}
-
-/**
 * 找索引
 * @param array 数组
 * @param length 数组长度
@@ -116,6 +103,19 @@ int findIndexByChar(char *array, int length, char c)
         }
     }
     return -1;
+}
+
+/**
+* 获取优先级
+* @param p1 操作符1
+* @param p2 操作符2
+* @return 索引 优先关系 >< =
+*/
+int getPrecedence(char p1, char p2)
+{
+    int p1Index = findIndexByChar(symbols, SYMBOLS_LENGTH, p1);
+    int p2Index = findIndexByChar(symbols, SYMBOLS_LENGTH, p2);
+    return findIndexByChar(symbols, SYMBOLS_LENGTH, precedence[p1Index][p2Index]);
 }
 
 /**
@@ -165,13 +165,29 @@ void scanInput(char *input, int length)
         char c = input[i];
         if (isNumber(c))
         {
+            numberStack = push(numberStack, atoi(&c));
+        }
+        else
+        {
+            symbolStack = push(symbolStack, c);
         }
     }
+    printf("#%p", numberStack);
+    printf("#%p", symbolStack);
 }
 
 int main(int argc, char const *argv[])
 {
-    char input[] = "6-8/4+3*5@";
-    scanInput(input, sizeof(input) / sizeof(int));
+    char *input = "6-8/4+3*5@";
+    /**
+     * 6
+     * 6   -
+     * 68  -
+     * 68  -/
+     * 684 -/
+     *     遇到小的操作符就退完所有栈里的内容
+     */
+    int length = 10;
+    scanInput(input, length);
     return 0;
 }
