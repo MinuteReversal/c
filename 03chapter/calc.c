@@ -149,19 +149,29 @@ int isSymbol(char c)
 }
 
 /**
-* 扫描字符串到栈
+* 计算
 * @param str 字符串
-* @param outNumberStack 
-* @return 
+* @param length 字符串长度
+* @return 无
 */
-void scanStringToStack(char *str)
+void scanInput(char *input, int length)
 {
     PStackNode numberStack = create(-1, NULL);
     PStackNode symbolStack = create(-1, NULL);
+    push(symbolStack, 6);
+
+    for (size_t i = 0; i < length; i++)
+    {
+        char c = input[i];
+        if (isNumber(c))
+        {
+        }
+    }
 }
 
 int main(int argc, char const *argv[])
 {
     char input[] = "6-8/4+3*5@";
+    scanInput(input, sizeof(input) / sizeof(int));
     return 0;
 }
