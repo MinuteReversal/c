@@ -166,6 +166,20 @@ void exitToBrack(PStackNode *symbolStack)
 }
 
 /**
+* 退出栈顶元素并打印
+* @param symbolStack 栈顶
+* @return 栈顶
+*/
+PStackNode exitAndPrint(PStackNode symbolStack)
+{
+    //退栈顶元素
+    int value;
+    symbolStack = pop(symbolStack, &value);
+    printf("%c ", value);
+    return symbolStack;
+}
+
+/**
 * 计算
 * @param str 字符串
 * @param length 字符串长度
@@ -195,6 +209,7 @@ void scanInput(char *input, int length)
         {
             //退到括号为止
             exitToBrack(&symbolStack);
+            symbolStack = exitAndPrint(symbolStack);
         }
         else if (getPrecedence(c, symbolStack->value) == '>')
         {
@@ -203,17 +218,13 @@ void scanInput(char *input, int length)
         }
         else if (getPrecedence(c, symbolStack->value) == '<')
         {
-            //退栈顶元素
-            int value;
-            symbolStack = pop(symbolStack, &value);
-            printf("%c ", value);
+            symbolStack = exitAndPrint(symbolStack);
         }
         else if (getPrecedence(c, symbolStack->value) == '=')
         {
             //相等退一次栈
             int symbol;
             symbolStack = pop(symbolStack, &symbol);
-            printf("%c", symbol);
         }
     }
     printf("\n");
