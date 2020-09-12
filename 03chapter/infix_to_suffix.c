@@ -25,10 +25,10 @@ char numbers[NUMBERS_LENGTH] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
 //运算符优先级
 char precedence[SYMBOLS_LENGTH][SYMBOLS_LENGTH] = {
     //p1\p2   +    -    *    /    (    )    @
-    /* + */ {'>', '>', '<', '<', '<', '>', '>'},
-    /* - */ {'>', '>', '<', '<', '<', '>', '>'},
-    /* * */ {'>', '>', '>', '>', '<', '>', '>'},
-    /* / */ {'>', '>', '>', '>', '<', '>', '>'},
+    /* + */ {'>', '>', '<', '<', '>', '<', '>'},
+    /* - */ {'>', '>', '<', '<', '>', '<', '>'},
+    /* * */ {'>', '>', '>', '>', '>', '<', '>'},
+    /* / */ {'>', '>', '>', '>', '>', '<', '>'},
     /* ( */ {'<', '<', '<', '<', '<', '=', ' '},
     /* ) */ {'>', '>', '>', '>', ' ', '>', '>'},
     /* @ */ {'<', '<', '<', '<', '<', ' ', '='},
@@ -152,41 +152,19 @@ int isSymbol(char c)
 * 计算
 * @param numberStack 数字栈 
 * @param symbolStack 符号栈
-* @return 结果
+* @return 无
 */
-int calc(PStackNode *numberStack, PStackNode *symbolStack)
+void exitToBrack(PStackNode *symbolStack)
 {
-    int p1;     //操作数1
-    int p2;     //操作数2
-    int symbol; //操作符
-    int result; //结果
-    do
+    int value;
+    while ((*symbolStack)->value != (int)'(')
     {
-        *numberStack = pop(*numberStack, &p2);     //先出栈的数字在右边
-        *numberStack = pop(*numberStack, &p1);     //后出栈的数字在左边
-        *symbolStack = pop(*symbolStack, &symbol); //弹出操作符号
-        switch (symbol)
-        {
-        case '+':
-            result = p1 + p2;
-            break;
-        case '-':
-            result = p1 - p2;
-            break;
-        case '*':
-            result = p1 * p2;
-            break;
-        case '/':
-            result = p1 / p2;
-            break;
-        default:
-            break;
-        }
-
-        *numberStack = push(*numberStack, result);
-    } while ((*symbolStack)->value != '@');
-    return result;
+        *symbolStack = pop(*symbolStack, &value);
+        printf("%c ", value);
+    }
+    *symbolStack = pop(*symbolStack, &value);
 }
+
 /**
 * 计算
 * @param str 字符串
@@ -206,7 +184,17 @@ void scanInput(char *input, int length)
         char c = input[i];
         if (isNumber(c))
         {
-            numberStack = push(numberStack, atoi(&c));
+            printf("%d ", atoi(&c));
+        }
+        else if (c == '(')
+        {
+            //左括号进栈
+            symbolStack = push(symbolStack, c);
+        }
+        else if (c == ')')
+        {
+            //退到括号为止
+            exitToBrack(&symbolStack);
         }
         else if (getPrecedence(c, symbolStack->value) == '>')
         {
@@ -215,24 +203,26 @@ void scanInput(char *input, int length)
         }
         else if (getPrecedence(c, symbolStack->value) == '<')
         {
-            result = calc(&numberStack, &symbolStack); //计算当前栈里的所有数和操作符
-            numberStack = push(numberStack, result);   //计算结果进栈
-            symbolStack = push(symbolStack, c);        //操作符号进栈
+            //退栈顶元素
+            int value;
+            symbolStack = pop(symbolStack, &value);
+            printf("%c ", value);
         }
         else if (getPrecedence(c, symbolStack->value) == '=')
         {
             //相等退一次栈
             int symbol;
             symbolStack = pop(symbolStack, &symbol);
+            printf("%c", symbol);
         }
     }
-    printf("%s=%d\n", input, result);
+    printf("\n");
 }
 
 int main(int argc, char const *argv[])
 {
-    char *input = "6-8/4+3*5@";
-    int length = 10;
+    char *input = "2*(3+5)/(6-4)@";
+    int length = 14;
 
     scanInput(input, length);
     return 0;
