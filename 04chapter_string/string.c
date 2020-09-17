@@ -170,7 +170,7 @@ int main(int argc, char const *argv[])
     printf("%s\n", inserted.text);
 
     String s3 = {"Beijing Shanghai China", 22};
-    s = substr(s3, 8, 8);
+    s = substr(s3, 7, 8);
     printf("%s\n", s.text);
     String m = {"Shanghai", 8};
 
