@@ -98,8 +98,60 @@ String insert(String s1, String s2, int index)
     return str;
 }
 
-String delete (String s, int index, int length)
+String substr(String s, int index, int length)
 {
+    String str = {"", 0};
+    if ((index < 0) || (index > s.length))
+    {
+        printf("error\n");
+        return str;
+    }
+    else if (s.length - index < length)
+    {
+        s.text[index] = '\0';
+        s.length = index - 1;
+        return s;
+    }
+    else
+    {
+        for (size_t i = index + length; i <= s.length; i++)
+        {
+            s.text[i - length] = s.text[i];
+        }
+        s.length = s.length - length;
+        return s;
+    }
+}
+
+int match(String s1, String s2)
+{
+    for (size_t i = 0; i < s1.length; i++)
+    {
+        int matchLength = 0;
+        for (size_t j = 0; j < s2.length; j++)
+        {
+            if (s1.text[i + j] != s2.text[j])
+            {
+                break;
+            }
+            matchLength++;
+        }
+
+        if (matchLength == s2.length)
+        {
+            return 1;
+        }
+    }
+
+    return -1;
+}
+
+String replace(String s1, String s2, int index, int length)
+{
+    String str;
+    str = substr(s1, index, length);
+    str = insert(str, s2, index);
+    return str;
 }
 
 int main(int argc, char const *argv[])
@@ -117,5 +169,19 @@ int main(int argc, char const *argv[])
     String inserted = insert(s1, s2, 3);
     printf("%s\n", inserted.text);
 
+    String s3 = {"Beijing Shanghai China", 22};
+    s = substr(s3, 8, 8);
+    printf("%s\n", s.text);
+    String m = {"Shanghai", 8};
+
+    int r;
+    r = match(s3, m);
+    printf("%d\n", r);
+
+    String s4 = {"You are a student.", 18};
+    String s5 = {"teacher", 7};
+
+    String s6 = replace(s4, s5, 10, 7);
+    printf("%s\n", s6.text);
     return 0;
 }
