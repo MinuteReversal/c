@@ -11,20 +11,12 @@ typedef struct _BinaryTreeNode
 /**
  * 创建单个树节点
  */
-PBinaryTreeNode create(int data, PBinaryTreeNode leftChild, PBinaryTreeNode rightChild)
+PBinaryTreeNode create(int data)
 {
     PBinaryTreeNode node = (PBinaryTreeNode)malloc(sizeof(BinaryTreeNode));
     node->data = data;
     node->leftChild = NULL;
     node->rightChild = NULL;
-    if (leftChild)
-    {
-        node->leftChild = leftChild;
-    }
-    if (rightChild)
-    {
-        node->rightChild = rightChild;
-    }
     return node;
 }
 
@@ -40,7 +32,7 @@ void initByArray(PBinaryTreeNode *tree, int index, int datas[], int length)
     }
     else
     {
-        *tree = (PBinaryTreeNode)malloc(sizeof(BinaryTreeNode));
+        *tree = create(data);
         (*tree)->data = data;
         initByArray(&(*tree)->leftChild, 2 * index + 1, datas, length);  //左儿子=索引*2+1
         initByArray(&(*tree)->rightChild, 2 * index + 2, datas, length); //右儿子=索引*2+2
