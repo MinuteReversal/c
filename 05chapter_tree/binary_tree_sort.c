@@ -41,7 +41,7 @@ PBinaryTreeNode insertNode(PBinaryTreeNode node, PBinaryTreeNode tree)
     }
     else
     {
-        tree->rightChild == insertNode(node, tree->rightChild);
+        tree->rightChild = insertNode(node, tree->rightChild);
     }
     return tree;
 }
@@ -49,21 +49,18 @@ PBinaryTreeNode insertNode(PBinaryTreeNode node, PBinaryTreeNode tree)
 /**
  * 初始化树
  */
-void initByArray(PBinaryTreeNode *tree, int index, int datas[], int length)
+PBinaryTreeNode initByArray(int datas[], int length)
 {
-    int data = datas[index];
-    if (data == 0 || index >= length)
+    PBinaryTreeNode tree;
+    PBinaryTreeNode node;
+    for (size_t i = 0; datas[i] != 0 && i < length; i++)
     {
-        *tree = NULL;
+        node = create(datas[i]);
+        tree = insertNode(node, tree);
     }
-    else
-    {
-        *tree = create(data);
-        (*tree)->data = data;
-        initByArray(&(*tree)->leftChild, 2 * index + 1, datas, length);  //左儿子=索引*2+1
-        initByArray(&(*tree)->rightChild, 2 * index + 2, datas, length); //右儿子=索引*2+2
-    }
+    return tree;
 }
+
 /**
  * 选序遍历
  */
@@ -106,21 +103,17 @@ void postorder(PBinaryTreeNode node)
 int main(int argc, char const *argv[])
 {
     /**
-     *       1
-     *     2   3
-     *   4  5    6
+     *       2
+     *     3   5
+     *           6
+     *          5  8
      */
     int array[] = {3, 5, 6, 2, 8, 5, 0};
     PBinaryTreeNode root = NULL;
-    initByArray(&root, 0, array, sizeof(array) / sizeof(int));
-
-    preorder(root);
-    printf("\n");
+    root = initByArray(array, sizeof(array) / sizeof(int));
 
     inorder(root);
     printf("\n");
 
-    postorder(root);
-    printf("\n");
     return 0;
 }
