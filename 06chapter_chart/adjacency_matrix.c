@@ -33,6 +33,15 @@ void printMatrix(int matrix[MAX_LEN][MAX_LEN])
 
 int main(int argc, char const *argv[])
 {
+    /**
+     * (v0)------(v2)
+     *  | \      /
+     *  |   \  /
+     *  |    /\
+     *  |  /    \
+     * (v1)------(v3)
+     * 
+     */
 
     int adjMatrix[MAX_LEN][MAX_LEN] = {
         {0, 1, 1, 1},
