@@ -80,6 +80,23 @@ PHeadNode createRow(int vertex[], int length)
     return head;
 }
 
+void printList(PHeadNode list[], int length)
+{
+    for (size_t i = 0; i < length; i++)
+    {
+        PHeadNode head = list[i];
+        printf(" %d==>", head->vertex);
+
+        PNode node = head->firstEdge;
+        while (node != NULL)
+        {
+            printf("---->%d", node->vertex);
+            node = node->next;
+        }
+        printf("\n");
+    }
+}
+
 int main(int argc, char const *argv[])
 {
     /**
@@ -100,5 +117,7 @@ int main(int argc, char const *argv[])
     head[1] = createRow((int[]){1, 0, 2, 3}, 4);
     head[2] = createRow((int[]){2, 0, 1}, 3);
     head[3] = createRow((int[]){3, 0, 1}, 3);
+
+    printList(head, MAX_LEN);
     return 0;
 }
