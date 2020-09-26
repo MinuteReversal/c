@@ -1,27 +1,27 @@
 #include <stdio.h>
 #include <malloc.h>
-#define MAX_LEN 10
+#define Q_MAX_LEN 10
 
-typedef struct _SeQueue
+typedef struct _Queue
 {
-    int elements[MAX_LEN];
+    int elements[Q_MAX_LEN];
     int front, rear;
-} SeQueue, *PSeQueue;
+} Queue, *PQueue;
 
-PSeQueue init()
+PQueue init()
 {
-    PSeQueue queue = (PSeQueue)malloc(sizeof(SeQueue));
+    PQueue queue = (PQueue)malloc(sizeof(Queue));
     queue->front = -1;
     queue->rear = -1;
     return queue;
 }
 
-int isEmpty(PSeQueue queue)
+int isEmpty(PQueue queue)
 {
     return queue->front == queue->rear;
 }
 
-int getFront(PSeQueue queue, int *value)
+int getFront(PQueue queue, int *value)
 {
     if (isEmpty(queue))
     {
@@ -31,9 +31,9 @@ int getFront(PSeQueue queue, int *value)
     return 1;
 }
 
-int enqueue(PSeQueue queue, int value)
+int enqueue(PQueue queue, int value)
 {
-    if (queue->rear == MAX_LEN - 1)
+    if (queue->rear == Q_MAX_LEN - 1)
         return 0;
 
     queue->rear++;
@@ -41,7 +41,7 @@ int enqueue(PSeQueue queue, int value)
     return 1;
 }
 
-int dequeue(PSeQueue queue, int *value)
+int dequeue(PQueue queue, int *value)
 {
     if (isEmpty(queue))
     {
@@ -52,7 +52,7 @@ int dequeue(PSeQueue queue, int *value)
     return 1;
 }
 
-void printQueue(PSeQueue queue)
+void printQueue(PQueue queue)
 {
     if (isEmpty(queue))
     {
@@ -70,7 +70,7 @@ void printQueue(PSeQueue queue)
 
 int main(int argc, char const *argv[])
 {
-    PSeQueue queue = init();
+    PQueue queue = init();
     printf("enqueue:");
     for (size_t i = 0; i < 5; i++)
     {
