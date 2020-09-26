@@ -3,7 +3,7 @@
 
 int main(int argc, char const *argv[])
 {
-    PQueue queue = initQueue();
+    PQueue queue = createQueue();
     for (size_t i = 0; i < 5; i++)
     {
         pushQueue(queue, i);

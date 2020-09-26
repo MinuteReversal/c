@@ -8,7 +8,7 @@ typedef struct _Queue
     int front, rear;
 } Queue, *PQueue;
 
-PQueue initQueue()
+PQueue createQueue()
 {
     PQueue queue = (PQueue)malloc(sizeof(Queue));
     queue->front = 0;

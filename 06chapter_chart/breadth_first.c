@@ -7,6 +7,7 @@
 ***************************************************************************** */
 #include <stdio.h>
 #include <malloc.h>
+#include "../03chapter_stack_queue/circular_queue.h"
 #define MAX_LEN 4
 
 /** 表节点*/
@@ -81,6 +82,10 @@ PHeadNode createRow(int vertex[], int length)
     return head;
 }
 
+/**
+ * 打印邻接表
+ * 
+ */
 void printList(PHeadNode table[], int length)
 {
     for (size_t i = 0; i < length; i++)
@@ -121,6 +126,36 @@ void depthFirst(PHeadNode list[], int v)
     }
 }
 
+/**
+ * 广度优先遍历
+ * @param list 邻接表
+ * @param v 顶点号
+ * @return 无
+ */
+void breadthFirst(PHeadNode list[], int v)
+{
+    PQueue queue = createQueue();
+    PNode p = list[v]->firstEdge; //当前节点p
+    printf("%d,", v);
+    list[v]->visited = 1;
+    pushQueue(queue, v);
+    while (!isEmptyQueue(queue))
+    {
+        popQueue(queue, &v);
+        p = list[v]->firstEdge;
+        while (p)
+        {
+            if (!list[p->vertex]->visited)
+            {
+                printf("%d,", p->vertex);
+                list[p->vertex]->visited = 1;
+                pushQueue(queue, p->vertex);
+            }
+            p = p->next;
+        }
+    }
+}
+
 int main(int argc, char const *argv[])
 {
     /**
@@ -145,7 +180,7 @@ int main(int argc, char const *argv[])
     list[3] = createRow((int[]){3, 1, 2}, 3);
 
     printList(list, MAX_LEN);
-    depthFirst(list, 0);
+    breadthFirst(list, 0);
     printf("\n");
     return 0;
 }
