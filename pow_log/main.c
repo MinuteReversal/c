@@ -11,8 +11,12 @@
 
 int main(int argc, char const *argv[])
 {
-  printf("%d\n", (int)pow(2, 10));
+
+  printf("%d\n", INT_MAX);
+  printf("%d\n", (int)pow(2, 31));
   printf("%d\n", INT_MAX == (int)pow(2, 31));
-  printf("%f\n", (1 << 31));
+  printf("%d\n", (1 << 31) - 1);
+
+  printf("%f\n", log2(INT_MAX));
   return 0;
 }
