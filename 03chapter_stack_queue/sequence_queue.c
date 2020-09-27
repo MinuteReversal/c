@@ -8,7 +8,7 @@ typedef struct _Queue
     int front, rear;
 } Queue, *PQueue;
 
-PQueue init()
+PQueue initQueue()
 {
     PQueue queue = (PQueue)malloc(sizeof(Queue));
     queue->front = -1;
@@ -16,14 +16,14 @@ PQueue init()
     return queue;
 }
 
-int isEmpty(PQueue queue)
+int isEmptyQueue(PQueue queue)
 {
     return queue->front == queue->rear;
 }
 
 int getFront(PQueue queue, int *value)
 {
-    if (isEmpty(queue))
+    if (isEmptyQueue(queue))
     {
         return 0;
     }
@@ -31,7 +31,7 @@ int getFront(PQueue queue, int *value)
     return 1;
 }
 
-int enqueue(PQueue queue, int value)
+int pushQueue(PQueue queue, int value)
 {
     if (queue->rear == Q_MAX_LEN - 1)
         return 0;
@@ -41,9 +41,9 @@ int enqueue(PQueue queue, int value)
     return 1;
 }
 
-int dequeue(PQueue queue, int *value)
+int popQueue(PQueue queue, int *value)
 {
-    if (isEmpty(queue))
+    if (isEmptyQueue(queue))
     {
         return 0;
     }
@@ -54,7 +54,7 @@ int dequeue(PQueue queue, int *value)
 
 void printQueue(PQueue queue)
 {
-    if (isEmpty(queue))
+    if (isEmptyQueue(queue))
     {
         printf("The queue is emmpty!");
     }
@@ -70,11 +70,11 @@ void printQueue(PQueue queue)
 
 int main(int argc, char const *argv[])
 {
-    PQueue queue = init();
+    PQueue queue = initQueue();
     printf("enqueue:");
     for (size_t i = 0; i < 5; i++)
     {
-        enqueue(queue, i);
+        pushQueue(queue, i);
     }
 
     printQueue(queue);
@@ -83,7 +83,7 @@ int main(int argc, char const *argv[])
     for (size_t i = 0; i < 5; i++)
     {
         int value;
-        dequeue(queue, &value);
+        popQueue(queue, &value);
         printf("%d,", value);
     }
     printf("\n");
