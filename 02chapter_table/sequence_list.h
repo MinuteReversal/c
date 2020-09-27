@@ -34,6 +34,36 @@ PList createListInitZero(int length)
 }
 
 /**
+ * 创建数组
+ * @param length 长度
+ * @return 数组
+ */
+int *createArrayInitZero(int length)
+{
+    int array[length];
+    for (size_t i = 0; i < length; i++)
+    {
+        array[i] = 0;
+    }
+    int *pa = array;
+    return pa;
+}
+
+/**
+ * 将数组的每一个成员赋值为0
+ * @param array 数组
+ * @param length 长度
+ * @return 无
+ */
+void initArrayByZero(int array[], int length)
+{
+    for (size_t i = 0; i < length; i++)
+    {
+        array[i] = 0;
+    }
+}
+
+/**
  * 将第二组的值复制到第一组中
  * @param array1 第一组
  * @param array2 第二组
@@ -46,7 +76,6 @@ void copyArray(int array1[], int array2[], int length)
         array1[i] = array2[i];
     }
 }
-
 
 /**
  * 使用列表类型初始化顺序表 
