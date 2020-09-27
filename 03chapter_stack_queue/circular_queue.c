@@ -17,5 +17,9 @@ int main(int argc, char const *argv[])
         printf("%d,", value);
     }
     printf("\n");
+    for (size_t i = 0; i < 10; i++)
+    {
+        pushQueue(queue, i);
+    }
     return 0;
 }
