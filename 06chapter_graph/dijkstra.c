@@ -11,10 +11,11 @@
 #define MX INT_MAX
 #define MAX_VEX 10
 
-void printArray(int *array){
+void printArray(int *array)
+{
     for (size_t i = 0; i < MAX_VEX; i++)
     {
-        printf("%d,",array[i]);
+        printf("%d,", array[i]);
     }
     printf("\n");
 }
@@ -101,7 +102,7 @@ int main(int argc, char const *argv[])
         {20, MX, MX, 15, MX, MX},
         {MX, 20, MX, MX, 35, MX},
         {MX, MX, MX, MX, MX, MX},
-        {MX, MX, MX, 03, MX, MX},
+        {MX, MX, MX, 3, MX, MX},
     };
     int **adjMatrix = create(m, INPUT_MATRIX_LEN);
     dijkstra(adjMatrix, 6, 0);

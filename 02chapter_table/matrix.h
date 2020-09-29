@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <malloc.h>
-#define MATRIX_LEN 10
-#ifndef INPUT_MATRIX_LEN
-#define INPUT_MATRIX_LEN MATRIX_LEN
+#define MATRIX_SIZE 10
+#ifndef INPUT_MATRIX_SIZE
+#define INPUT_MATRIX_SIZE MATRIX_SIZE
 #endif
 typedef struct _Matrix
 {
@@ -47,11 +47,11 @@ void printMatrix(PMatrix matrix)
 
 int **create(int array[INPUT_MATRIX_LEN][INPUT_MATRIX_LEN], int size)
 {
-    int **a = malloc(MATRIX_LEN * sizeof(int *));
-    for (size_t i = 0; i < MATRIX_LEN; i++)
+    int **a = malloc(MATRIX_SIZE * sizeof(int *));
+    for (size_t i = 0; i < MATRIX_SIZE; i++)
     {
-        a[i] = malloc(MATRIX_LEN * sizeof(int));
-        for (size_t j = 0; j < MATRIX_LEN; j++)
+        a[i] = malloc(MATRIX_SIZE * sizeof(int));
+        for (size_t j = 0; j < MATRIX_SIZE; j++)
         {
             a[i][j] = (i < size && j < size) ? array[i][j] : 0;
         }
@@ -61,9 +61,9 @@ int **create(int array[INPUT_MATRIX_LEN][INPUT_MATRIX_LEN], int size)
 
 void printMatrixArray(int **array)
 {
-    for (size_t i = 0; i < MATRIX_LEN; i++)
+    for (size_t i = 0; i < MATRIX_SIZE; i++)
     {
-        for (size_t j = 0; j < MATRIX_LEN; j++)
+        for (size_t j = 0; j < MATRIX_SIZE; j++)
         {
             printf("%d,", array[i][j]);
         }
@@ -84,7 +84,7 @@ void disposeMatrix(PMatrix matrix)
 
 void disposeMatrixArray(int **array)
 {
-    for (size_t i = 0; i < MATRIX_LEN; i++)
+    for (size_t i = 0; i < MATRIX_SIZE; i++)
     {
         free(array[i]);
     }
