@@ -21,7 +21,7 @@ void printSolution(int dist[][V])
         for (int j = 0; j < V; j++)
         {
             if (dist[i][j] == M)
-                printf("%s,", "Infinite");
+                printf("%s,", "Infinity");
             else
                 printf("(%d-->%d) %d, ", i, j, dist[i][j]);
         }
