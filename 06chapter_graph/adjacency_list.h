@@ -1,13 +1,14 @@
-
 /******************************************************************************
 * fileName    : adjacency_list.c 
 * author      : 114233763@qq.com
 * date        : 2020-09-24 21:31:55
-* description : 邻接表深度遍历
+* description : 邻接表
 ***************************************************************************** */
 #include <stdio.h>
 #include <malloc.h>
+#ifndef MAX_LEN
 #define MAX_LEN 4
+#endif
 
 /** 表节点*/
 typedef struct _Node
@@ -28,7 +29,7 @@ PHeadNode createHead(int vertex)
 {
     PHeadNode head = (PHeadNode)malloc(sizeof(HeadNode));
     head->firstEdge = NULL;
-    head->data = 0; //没有访问过
+    head->data = 0;
     return head;
 }
 
@@ -81,12 +82,12 @@ PHeadNode createRow(int vertex[], int length)
     return head;
 }
 
-void printList(PHeadNode table[], int length)
+void printList(PHeadNode list[], int length)
 {
     for (size_t i = 0; i < length; i++)
     {
-        PHeadNode head = table[i];
-        printf("%d==>", i);
+        PHeadNode head = list[i];
+        printf(" %d==>", i);
 
         PNode node = head->firstEdge;
         while (node != NULL)
@@ -96,56 +97,4 @@ void printList(PHeadNode table[], int length)
         }
         printf("\n");
     }
-}
-
-/**
- * 深度优先遍历
- * @param list 邻接表
- * @param v 顶点
- * @return 无
- */
-void depthFirst(PHeadNode list[], int v)
-{
-    PHeadNode head = list[v];
-    PNode currentNode = head->firstEdge;
-    printf("%d,", v);  //打印顶点号
-    head->data = 1; //标记为访问过此顶
-    while (currentNode != NULL)
-    {
-        int vertex = currentNode->vertex;
-        if (list[vertex]->data == 0)
-        {
-            depthFirst(list, vertex);
-        }
-        currentNode = currentNode->next;
-    }
-}
-
-int main(int argc, char const *argv[])
-{
-    /**
-     *         (0)
-     *        /   \
-     *       /     \
-     *     (1)-----(2)
-     *       \     /
-     *        \   /
-     *         (3)
-     * 
-     * 顶点 访问
-     *  0 [0]->[1]->[2]
-     *  1 [0]->[0]->[2]->[3]
-     *  2 [0]->[0]->[1]->[3]
-     *  3 [0]->[1]->[2]
-     */
-    PHeadNode list[MAX_LEN];
-    list[0] = createRow((int[]){0, 1, 2}, 3);
-    list[1] = createRow((int[]){1, 0, 2, 3}, 4);
-    list[2] = createRow((int[]){2, 0, 1, 3}, 4);
-    list[3] = createRow((int[]){3, 1, 2}, 3);
-
-    printList(list, MAX_LEN);
-    depthFirst(list, 0);
-    printf("\n");
-    return 0;
 }

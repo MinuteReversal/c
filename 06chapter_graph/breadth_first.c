@@ -20,7 +20,7 @@ typedef struct _Node
 /** 表头*/
 typedef struct _HeadNode
 {
-    int visited;
+    int data;
     Node *firstEdge;
 } HeadNode, *PHeadNode;
 
@@ -29,7 +29,7 @@ PHeadNode createHead(int vertex)
 {
     PHeadNode head = (PHeadNode)malloc(sizeof(HeadNode));
     head->firstEdge = NULL;
-    head->visited = 0; //没有访问过
+    head->data = 0; //没有访问过
     return head;
 }
 
@@ -114,11 +114,11 @@ void depthFirst(PHeadNode list[], int v)
     PHeadNode head = list[v];
     PNode currentNode = head->firstEdge;
     printf("%d,", v);  //打印顶点号
-    head->visited = 1; //标记为访问过此顶
+    head->data = 1; //标记为访问过此顶
     while (currentNode != NULL)
     {
         int vertex = currentNode->vertex;
-        if (list[vertex]->visited == 0)
+        if (list[vertex]->data == 0)
         {
             depthFirst(list, vertex);
         }
@@ -137,7 +137,7 @@ void breadthFirst(PHeadNode list[], int v)
     PQueue queue = createQueue();
     PNode p = list[v]->firstEdge; //当前节点p
     printf("%d,", v);
-    list[v]->visited = 1;
+    list[v]->data = 1;
     pushQueue(queue, v);
     while (!isEmptyQueue(queue))
     {
@@ -145,10 +145,10 @@ void breadthFirst(PHeadNode list[], int v)
         p = list[v]->firstEdge;
         while (p)
         {
-            if (!list[p->vertex]->visited)
+            if (!list[p->vertex]->data)
             {
                 printf("%d,", p->vertex);
-                list[p->vertex]->visited = 1;
+                list[p->vertex]->data = 1;
                 pushQueue(queue, p->vertex);
             }
             p = p->next;

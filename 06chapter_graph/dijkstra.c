@@ -53,11 +53,11 @@ void dijkstra(int graph[V][V], int v0, int *path[V], int dist[V])
     {
         final[v] = 0;
         dist[v] = graph[v0][v];
-        if (dist[v] < INT_MAX)
-        {
-            path[v][v0] = 1;
-            path[v][v] == 1;
-        }
+        // if (dist[v] < INT_MAX)
+        // {
+        //     path[v][v0] = 1;
+        //     path[v][v] == 1;
+        // }
     }
     dist[v0] = 0;
     final[v0] = 1;
@@ -81,8 +81,8 @@ void dijkstra(int graph[V][V], int v0, int *path[V], int dist[V])
             if (!final[w] && alt < dist[w])
             {
                 dist[w] = alt;
-                path[w] = path[v];
-                path[w][w] = 1;
+                // path[w] = path[v];
+                // path[w][w] = 1;
             }
         }
     }
