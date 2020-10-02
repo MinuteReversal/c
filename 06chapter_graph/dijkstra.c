@@ -4,7 +4,7 @@
 * date        : 2020-09-27 11:39:54
 * description : 最短路径-迪杰斯特拉
 https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
-https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/
+https://blog.csdn.net/qq_35644234/article/details/60870719
 ***************************************************************************** */
 #include <stdio.h>
 #include <malloc.h>
@@ -15,15 +15,15 @@ https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/
 /**
  * 获取没有搜索过的最近距离顶点索引
  * @param dist 最近顶点
- * @param sptSet 已搜索过的标记
+ * @param visited 已搜索过的标记
  * @return 最近顶点索引
  */
-int minDistance(int dist[], int sptSet[])
+int minDistance(int dist[], int visited[])
 {
     int min = INT_MAX, minIndex;
 
     for (int v = 0; v < V; v++)
-        if (sptSet[v] == 0 && dist[v] <= min)
+        if (visited[v] == 0 && dist[v] <= min)
             min = dist[v], minIndex = v;
 
     return minIndex;
@@ -46,68 +46,46 @@ void printSolution(int dist[])
  * @param src 起始顶点
  * @return 返回src到最近顶点的索引与距离
  */
-int *dijkstra(int graph[V][V], int src)
+void dijkstra(int graph[V][V], int v0, int *path[V], int dist[V])
 {
-    int *dist = (int *)malloc(V * sizeof(int));
-    int sptSet[V];
-
-    for (int i = 0; i < V; i++)
-        dist[i] = INT_MAX, sptSet[i] = 0;
-
-    dist[src] = 0;
-
-    for (int count = 0; count < V - 1; count++)
+    int final[V], min, v, w;
+    for (v = 0; v < V; v++)
     {
-        int u = minDistance(dist, sptSet);
-        sptSet[u] = 1;
-        for (int v = 0; v < V; v++)
+        final[v] = 0;
+        dist[v] = graph[v0][v];
+        if (dist[v] < INT_MAX)
         {
-            int alt = dist[u] + graph[u][v];
-            if (!sptSet[v] && alt < dist[v])
+            path[v][v0] = 1;
+            path[v][v] == 1;
+        }
+    }
+    dist[v0] = 0;
+    final[v0] = 1;
+    //主循环，每次求得v0到某个v顶点的最短路径，并加入v到S集合
+    for (size_t i = 1; i < V; i++)
+    {
+        min = INT_MAX;
+        for (w = 0; w < V; w++)
+        {
+            if (!final[w])
+                if (dist[w] < min)
+                {
+                    v = w;
+                    min = dist[w];
+                }
+        }
+        final[v] = 1;
+        for (w = 0; w < V; w++)
+        {
+            int alt = min + graph[v][w] < dist[w];
+            if (!final[w] && alt < dist[w])
             {
-                dist[v] = alt;
-                printf("%d=>", u);
+                dist[w] = alt;
+                path[w] = path[v];
+                path[w][w] = 1;
             }
         }
     }
-
-    return dist;
-}
-
-int findMinIndex(int dist[V])
-{
-    int min = -1;
-    int index = 0;
-    for (size_t i = 0; i < V; i++)
-    {
-        if (min < dist[i] && dist[i] > 0 && dist[i] < MX)
-        {
-            min = dist[i];
-            index = i;
-        }
-    }
-    return index;
-}
-
-/**
- * 两点之间最短路径
- * @param graph 图
- * @param from 开始点
- * @param to 结束点
- * @return 路径
- */
-int *shortPath(int graph[V][V], int from, int to)
-{
-    int next = from;
-    int path[V] = {0, 0, 0, 0, 0, 0};
-    int *dist;
-
-    while (next != to)
-    {
-        dist = dijkstra(graph, from);
-        next = findMinIndex(dist);
-    }
-    return path;
 }
 
 int main(int argc, char const *argv[])
@@ -133,7 +111,9 @@ int main(int argc, char const *argv[])
         {MX, MX, MX, MX, MX, MX},
         {MX, MX, MX, 3, MX, MX},
     };
+    int *(path)[V];
+    int dist[V];
 
-    dijkstra(matrix, 0);
+    dijkstra(matrix, 0, path, dist);
     return 0;
 }

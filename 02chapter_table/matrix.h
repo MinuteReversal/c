@@ -45,7 +45,7 @@ void printMatrix(PMatrix matrix)
     }
 }
 
-int **create(int array[INPUT_MATRIX_LEN][INPUT_MATRIX_LEN], int size)
+int **create(int array[INPUT_MATRIX_SIZE][INPUT_MATRIX_SIZE], int size)
 {
     int **a = malloc(MATRIX_SIZE * sizeof(int *));
     for (size_t i = 0; i < MATRIX_SIZE; i++)
