@@ -46,44 +46,60 @@ void printSolution(int dist[])
  * @param src 起始顶点
  * @return 返回src到最近顶点的索引与距离
  */
-void dijkstra(int graph[V][V], int v0, int *path[V], int dist[V])
+void dijkstra(int graph[V][V], int v0)
 {
-    int final[V], min, v, w;
-    for (v = 0; v < V; v++)
+    int path[V], s[V], dist[V], i, j, w, v, min;
+
+    for (i = 0; i < V; i++)
     {
-        final[v] = 0;
-        dist[v] = graph[v0][v];
-        // if (dist[v] < INT_MAX)
-        // {
-        //     path[v][v0] = 1;
-        //     path[v][v] == 1;
-        // }
+        dist[i] = graph[v0][i];
+        s[i] = 0;
+        if (graph[v0][i] < MX)
+            path[i] = v0;
     }
-    dist[v0] = 0;
-    final[v0] = 1;
-    //主循环，每次求得v0到某个v顶点的最短路径，并加入v到S集合
-    for (size_t i = 1; i < V; i++)
+
+    s[v0] = 1;
+    for (i = 0; i < V; i++)
     {
-        min = INT_MAX;
-        for (w = 0; w < V; w++)
-        {
-            if (!final[w])
-                if (dist[w] < min)
-                {
-                    v = w;
-                    min = dist[w];
-                }
-        }
-        final[v] = 1;
-        for (w = 0; w < V; w++)
-        {
-            int alt = min + graph[v][w] < dist[w];
-            if (!final[w] && alt < dist[w])
+        min = MX;
+        for (j = 0; j < V; j++)
+            if ((s[j] == 0) && (dist[j] < min))
             {
-                dist[w] = alt;
-                // path[w] = path[v];
-                // path[w][w] = 1;
+                min = dist[j];
+                w = j;
             }
+        s[w] = 1;
+        for (v = 0; v < V; v++)
+        {
+            if (s[v] == 0)
+            {
+                if (dist[w] + graph[w][v] < dist[v])
+                {
+                    dist[v] = dist[w] + graph[w][v];
+                    path[v] = w;
+                }
+            }
+        }
+    }
+    printf("The shortest path from %d to each vetex:\n", v0);
+
+    for (i = 1; i < V; i++)
+    {
+        if (s[i] == 1)
+        {
+            w = i;
+            while (w != v0)
+            {
+                printf("%d<--", w);
+                w = path[w];
+            }
+            printf("%d", w);
+            printf("%d\n", dist[i]);
+        }
+        else
+        {
+            printf("%d<--%d", i, v0);
+            printf("not path");
         }
     }
 }
@@ -111,9 +127,7 @@ int main(int argc, char const *argv[])
         {MX, MX, MX, MX, MX, MX},
         {MX, MX, MX, 3, MX, MX},
     };
-    int *(path)[V];
-    int dist[V];
 
-    dijkstra(matrix, 0, path, dist);
+    dijkstra(matrix, 0);
     return 0;
 }

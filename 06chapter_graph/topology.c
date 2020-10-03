@@ -55,14 +55,14 @@ int main(int argc, char const *argv[])
 {
     /**
      * 
-     *   (0)------>(2)------->(4)------->(5)
-     *     \       ^         ^ ^ \       ^   
-     *       \    /       /   /   \   /   
-     *         \/     /     /     /\  
-     *        /  \ /      /    /    \
-     *      /   / \     /   /        \
-     *    /  /      v /  /            v
-     *   (1)------>(3) /              (6)
+     *   (0)------>(2)------->(4)------->(6)
+     *     \       ^         ^ ^ \        
+     *       \    /       /   /   \   
+     *         \/     /     /      \  
+     *        /  \ /      /         \
+     *      /   /  \    /            \
+     *    /  /      v /               v
+     *   (1)        (3) ------------->(5)
      */
     PHeadNode head[N];
     head[0] = createRow((int[]){0, 2, 3}, 3);
@@ -77,7 +77,7 @@ int main(int argc, char const *argv[])
     head[0]->data = 0;
     head[1]->data = 0;
     head[2]->data = 2;
-    head[3]->data = 2;
+    head[3]->data = 1;
     head[4]->data = 3;
     head[5]->data = 2;
     head[6]->data = 1;
