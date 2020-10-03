@@ -53,14 +53,34 @@ void topSort(PHeadNode adjList[N])
 
 int main(int argc, char const *argv[])
 {
+    /**
+     * 
+     *   (0)------>(2)------->(4)------->(5)
+     *     \       ^         ^ ^ \       ^   
+     *       \    /       /   /   \   /   
+     *         \/     /     /     /\  
+     *        /  \ /      /    /    \
+     *      /   / \     /   /        \
+     *    /  /      v /  /            v
+     *   (1)------>(3) /              (6)
+     */
     PHeadNode head[N];
     head[0] = createRow((int[]){0, 2, 3}, 3);
     head[1] = createRow((int[]){0, 2, 4}, 3);
     head[2] = createRow((int[]){0, 4}, 2);
     head[3] = createRow((int[]){0, 4, 5}, 3);
-    head[4] = createRow((int[]){0, 4, 5}, 3);
+    head[4] = createRow((int[]){0, 5, 6}, 3);
     head[5] = createRow((int[]){0}, 1);
     head[6] = createRow((int[]){0}, 1);
+
+    //入度设置
+    head[0]->data = 0;
+    head[1]->data = 0;
+    head[2]->data = 2;
+    head[3]->data = 2;
+    head[4]->data = 3;
+    head[5]->data = 2;
+    head[6]->data = 1;
 
     topSort(head);
     printf("\n");
