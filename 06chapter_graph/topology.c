@@ -14,7 +14,7 @@
  * @param adjList 邻接表
  * @return 无
  */
-void topSort(PHeadNode adjList[N])
+void topoSort(PHeadNode adjList[N])
 {
     PQueue queue = createQueue();
     PNode p;
@@ -82,7 +82,7 @@ int main(int argc, char const *argv[])
     head[5]->data = 2;
     head[6]->data = 1;
 
-    topSort(head);
+    topoSort(head);
     printf("\n");
     return 0;
 }
