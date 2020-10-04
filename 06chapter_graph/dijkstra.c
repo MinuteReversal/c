@@ -10,7 +10,7 @@ https://blog.csdn.net/qq_35644234/article/details/60870719
 #include <malloc.h>
 #include <limits.h>
 #define V 6
-#define MX INT_MAX
+#define MX 999
 
 /**
  * 获取没有搜索过的最近距离顶点索引
@@ -71,19 +71,16 @@ void dijkstra(int graph[V][V], int v0)
         s[w] = 1;
         for (v = 0; v < V; v++)
         {
-            if (s[v] == 0)
+            if (!s[v] && dist[w] + graph[w][v] < dist[v])
             {
-                if (dist[w] + graph[w][v] < dist[v])
-                {
-                    dist[v] = dist[w] + graph[w][v];
-                    path[v] = w;
-                }
+                dist[v] = dist[w] + graph[w][v];
+                path[v] = w;
             }
         }
     }
     printf("The shortest path from %d to each vetex:\n", v0);
 
-    for (i = 1; i < V; i++)
+    for (i = 0; i < V; i++)
     {
         if (s[i] == 1)
         {
@@ -94,12 +91,12 @@ void dijkstra(int graph[V][V], int v0)
                 w = path[w];
             }
             printf("%d", w);
-            printf("%d\n", dist[i]);
+            printf(" %d\n", dist[i]);
         }
         else
         {
             printf("%d<--%d", i, v0);
-            printf("not path");
+            printf(" no path\n");
         }
     }
 }
@@ -128,6 +125,6 @@ int main(int argc, char const *argv[])
         {MX, MX, MX, 3, MX, MX},
     };
 
-    dijkstra(matrix, 0);
+    dijkstra(matrix, 5);
     return 0;
 }
