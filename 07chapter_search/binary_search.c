@@ -10,7 +10,7 @@ typedef struct _Element
 int binarySsearch(Element list[], int length, int key)
 {
 
-    int low = 1, high = length, middle;
+    int low = 0, high = length, middle;
     while (low <= high)
     {
         middle = (low + high) / 2;
