@@ -42,21 +42,14 @@ int search(int data, int array[MAX_LEN])
 int main(int argc, char const *argv[])
 {
     int array[MAX_LEN];
-    int studentNo[] = {
-        200201,
-        200205,
-        200218,
-        200221,
-        200227,
-        200245,
-    };
-
     initArrayByZero(array, MAX_LEN);
 
-    for (size_t i = 0; i < sizeof(array) / sizeof(int); i++)
-    {
-        save(studentNo[i], array);
-    }
+    save(200201, array);
+    save(200205, array);
+    save(200218, array);
+    save(200221, array);
+    save(200227, array);
+    save(200245, array);
 
     int number = 200201;
     int index = search(number, array);
