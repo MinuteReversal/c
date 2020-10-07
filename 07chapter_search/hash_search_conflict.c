@@ -1,11 +1,20 @@
+/******************************************************************************
+* fileName    : hash_search_conflict.c 
+* author      : 114233763@qq.com
+* date        : 2020-10-07 09:20:39
+* description : 散列冲突
+***************************************************************************** */
 #include <stdio.h>
-#include "../02chapter_list/sequence_list.h"
 #define MAX_LEN 50
 
 /**
  * 散列算法1
  * @param key 键
  * @return index
+ * 使用大写字母编号做散列算法
+ * A为0
+ * Z为25
+ * ASCII中A的值是65
  */
 int hash1(char key[], int length)
 {
@@ -17,6 +26,7 @@ int hash1(char key[], int length)
  * 散列算法2
  * @param key 键
  * @return index
+ * 使用字符串开头和结尾字符做散列算法
  */
 int hash2(char *key, int length)
 {
