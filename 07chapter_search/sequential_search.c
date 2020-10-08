@@ -2,10 +2,10 @@
 #include <malloc.h>
 #define MAX_ITEM 10
 
-typedef struct _Element
+typedef struct _ElementAge
 {
     int key;
-} Element, *PElement;
+} Element, *PElementAge;
 
 int search(Element list[], int length, int key)
 {
