@@ -142,7 +142,10 @@ void disposeList(PList list)
     free(list);
 }
 
-//打印数组
+/**
+ * 打印列表
+ * @param list 顺序表
+ */
 void printList(PList list)
 {
     for (int i = 0; i < list->length; i++)

@@ -1,5 +1,5 @@
 /******************************************************************************
-* fileName    : hash_direct_index.c 
+* fileName    : hash_direct_address.c 
 * author      : 114233763@qq.com
 * date        : 2020-10-08 09:08:39
 * description : 直接定址法
