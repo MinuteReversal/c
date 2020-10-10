@@ -32,10 +32,11 @@ int binarySsearch(Element list[], int length, int key)
 
 int main(int argc, char const *argv[])
 {
-    Element list[MAX_ITEM] = {0, 3, 4, 5, 7, 8, 10};
+    int n = 7;
+    Element list[] = {0, 3, 4, 5, 7, 8, 10};
 
     int key = 5;
-    int index = binarySsearch(list, 7, key);
+    int index = binarySsearch(list, n, key);
 
     if (index > -1)
     {
