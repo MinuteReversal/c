@@ -11,10 +11,12 @@ typedef struct _Bag
 
 int main(int argc, char const *argv[])
 {
+    //值类型
     Bag lvBag;
     lvBag.brand = "lv";
     lvBag.color = "red";
 
+    //引用类型
     //   实例化           抽像
     //   对象      <=>    类
     PBag chanelBag = (PBag)malloc(sizeof(PBag));

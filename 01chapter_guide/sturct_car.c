@@ -11,10 +11,12 @@ typedef struct _Car
 
 int main(int argc, char const *argv[])
 {
+    //值类型
     Car bmwCar;
     bmwCar.brand = "bmw";
     bmwCar.color = "red";
 
+    //引用类型
     //   实例化           抽像
     //   对象      <=>    类
     PCar benzCar = (PCar)malloc(sizeof(Car));
