@@ -15,9 +15,11 @@ int main(int argc, char const *argv[])
     lvBag.brand = "lv";
     lvBag.color = "red";
 
+    //   实例化           抽像
+    //   对象      <=>    类
     PBag chanelBag = (PBag)malloc(sizeof(PBag));
     chanelBag->brand = "chanel";
-    chanelBag->color = "White";
+    chanelBag->color = "white";
 
     return 0;
 }

@@ -15,6 +15,8 @@ int main(int argc, char const *argv[])
     bmwCar.brand = "bmw";
     bmwCar.color = "red";
 
+    //   实例化           抽像
+    //   对象      <=>    类
     PCar benzCar = (PCar)malloc(sizeof(Car));
     benzCar->brand = "Benz";
     benzCar->color = "White";
