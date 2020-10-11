@@ -1,6 +1,16 @@
+/*! *****************************************************************************
+fileName    : link_queue.h 
+author      : 114233763@qq.com
+date        : 2020-10-11 22:36:22
+version     : v1
+description : 链队定义
+***************************************************************************** */
 #include <stdio.h>
 #include <malloc.h>
 
+/**
+ * 节点
+ */
 typedef struct _QueueNode
 {
     int data;

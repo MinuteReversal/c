@@ -10,7 +10,7 @@
 int main(int argc, char const *argv[])
 {
     PStack stack = createStack();
-    for (size_t i = 0; i < MAX_LEN; i++)
+    for (size_t i = 0; i < STACK_MAX_LEN; i++)
     {
         printf("push:%d\n", i);
         pushStack(stack, i);

@@ -2,7 +2,7 @@
 * fileName    : calc.c 
 * author      : 114233763@qq.com
 * date        : 2020-09-09 13:24:58
-* description : 
+* description : 中缀表达式转后缀表达式
  \ p2
 P1\   |+|-|*|/|(|)|@|
 +      > > < < < > > 

@@ -46,8 +46,10 @@ PNode insertAfter(PNode priorNode, int value)
     return currentNode;
 }
 
-/*
-* 初始化
+/**
+* 初始化双向循环链表
+* @param length 长度
+* @return 第一个节点 
 */
 PNode init(int length)
 {
@@ -65,6 +67,8 @@ PNode init(int length)
 
 /**
  * 获取最后一个节点
+ * @param head 头节点
+ * @return 最后一个节点
  */
 PNode getEnd(PNode head)
 {
@@ -78,6 +82,9 @@ PNode getEnd(PNode head)
 
 /**
  * 通过值查找节点
+ * @param head 头节点
+ * @param value 值
+ * @return 找到的节点
  */
 PNode findByValue(PNode head, int value)
 {

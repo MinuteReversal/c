@@ -8,6 +8,9 @@
 #include <stdio.h>
 #include <malloc.h>
 
+/**
+ * 十字链表节点
+ */
 typedef struct _CrossNode
 {
     //行号
@@ -22,6 +25,9 @@ typedef struct _CrossNode
     struct _CrossNode *right;
 } CrossNode, *PCrossNode;
 
+/**
+ * 十字链表
+ */
 typedef struct _CrossMatrix
 {
     PCrossNode *rowHead; //数组
@@ -31,10 +37,13 @@ typedef struct _CrossMatrix
 
 } CrossMatrix, *PCrossMatrix;
 
+/**
+ * 矩阵
+ */
 typedef struct _Matrix
 {
-    int rows, columns;
-    int *table;
+    int rows, columns; //行数，列数
+    int *table;        //表
 } Matrix, *PMatrix;
 
 /**
@@ -71,6 +80,11 @@ PMatrix initMatix(int rows, int columns)
     return matrix;
 }
 
+/**
+ * 打印矩阵
+ * @param matrix
+ * @return 无
+ */
 void printMatrix(PMatrix matrix)
 {
     for (size_t i = 0; i < matrix->rows; i++)
@@ -105,6 +119,9 @@ PCrossNode createCrossNode()
 
 /**
  * 插入节点到列头上
+ * @param columnHead 列头
+ * @param insertNode 插入节点
+ * @return 无 
  */
 void insertInColumn(PCrossNode *columnHead, PCrossNode insertNode)
 {
@@ -130,6 +147,9 @@ void insertInColumn(PCrossNode *columnHead, PCrossNode insertNode)
 
 /**
  * 在行上插入节点
+ * @param rowHead 行头
+ * @param insertNode 要插入的节点
+ * @return 无
  */
 void inserInRow(PCrossNode *rowHead, PCrossNode insertNode)
 {
@@ -156,6 +176,7 @@ void inserInRow(PCrossNode *rowHead, PCrossNode insertNode)
 /**
  * 创建行头
  * @param length 长度
+ * @return 单个节点
  */
 PCrossNode *createRowHead(int length)
 {
@@ -175,6 +196,7 @@ PCrossNode *createRowHead(int length)
 /**
  * 创建列头
  * @param length 长度
+ * @return 单个节点
  */
 PCrossNode *createColumnHead(int length)
 {

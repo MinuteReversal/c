@@ -16,6 +16,7 @@ typedef struct _SeqList
 
 /**
  * 创建一个顺序表
+ * @return 表
  */
 PSeqList createSeqList()
 {
@@ -24,6 +25,7 @@ PSeqList createSeqList()
 
 /**
  * 初始化顺序表，给前十项赋默认值 
+ * @return 表
  */
 PSeqList initList()
 {
@@ -39,6 +41,7 @@ PSeqList initList()
 
 /**
  * 将表一的内容复制到表二中
+ * @return 无
  */
 void copy(PSeqList list1, PSeqList list2)
 {
@@ -51,8 +54,8 @@ void copy(PSeqList list1, PSeqList list2)
 
 int main(int argc, char const *argv[])
 {
-    PSeqList list = initList();
-    PSeqList list2 = createSeqList();
-    copy(list, list2);
+    PSeqList list = initList();       //创建并初始化表
+    PSeqList list2 = createSeqList(); //创建表
+    copy(list, list2);                //复制
     return 0;
 }

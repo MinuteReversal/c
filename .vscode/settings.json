@@ -19,6 +19,9 @@
         "tuple": "c",
         "limits": "c",
         "cmath": "c",
-        "fstream": "c"
+        "fstream": "c",
+        "unordered_map": "c",
+        "iterator": "c",
+        "memory_resource": "c"
     },
 }

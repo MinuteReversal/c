@@ -1,16 +1,29 @@
+/*! *****************************************************************************
+fileName    : circular_queue.h 
+author      : 114233763@qq.com
+date        : 2020-10-11 22:40:05
+version     : v1
+description : 循环队列定义
+***************************************************************************** */
 #include <stdio.h>
 #include <malloc.h>
 #define Q_MAX_LEN 10
 
+/**
+ * 循环队列定义
+ */
 typedef struct _Queue
 {
-    int elements[Q_MAX_LEN];
-    int front, rear;
+    int elements[Q_MAX_LEN]; //数组
+    int front, rear;         //队头，队尾下标
 } Queue, *PQueue;
 
+/**
+ * 创建循环队列
+ */
 PQueue createQueue()
 {
-    PQueue queue = (PQueue)malloc(sizeof(Queue));
+    PQueue queue = (PQueue)malloc(sizeof(Queue)); //实例化队列
     queue->front = 0;
     queue->rear = 0;
     return queue;
