@@ -1,3 +1,9 @@
+/******************************************************************************
+* fileName    : circular_link_list.c 
+* author      : 114233763@qq.com
+* date        : 2020-10-11 21:46:44
+* description : 循环链表
+***************************************************************************** */
 #include <stdio.h>
 #include <malloc.h>
 
@@ -125,6 +131,9 @@ void removeByValue(PNode head, int value)
     }
 }
 
+/**
+ * 打印链表
+ */
 void printLinkList(PNode head)
 {
     for (PNode node = head; node->next != head; node = node->next)

@@ -153,6 +153,10 @@ void inserInRow(PCrossNode *rowHead, PCrossNode insertNode)
     }
 }
 
+/**
+ * 创建行头
+ * @param length 长度
+ */
 PCrossNode *createRowHead(int length)
 {
     PCrossNode *head = (PCrossNode *)malloc(sizeof(PCrossNode) * length);
@@ -168,6 +172,10 @@ PCrossNode *createRowHead(int length)
     return head;
 }
 
+/**
+ * 创建列头
+ * @param length 长度
+ */
 PCrossNode *createColumnHead(int length)
 {
     PCrossNode *head = (PCrossNode *)malloc(sizeof(PCrossNode) * length);

@@ -1,3 +1,9 @@
+/******************************************************************************
+* fileName    : circular_doubly_link_list.c 
+* author      : 114233763@qq.com
+* date        : 2020-10-11 21:46:11
+* description : 循环双向链表
+***************************************************************************** */
 #include <stdio.h>
 #include <malloc.h>
 
@@ -6,11 +12,11 @@
 */
 typedef struct _Node
 {
-    //前驱
+    //直接前驱
     struct _Node *prior;
     //值
     int value;
-    //后继
+    //直接后继
     struct _Node *next;
 } Node, *PNode;
 
@@ -143,6 +149,9 @@ void removeByValue(PNode head, int value)
     }
 }
 
+/**
+ * 打印链表
+ */
 void printLinkList(PNode head)
 {
     for (PNode node = head; node->next != head; node = node->next)

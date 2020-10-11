@@ -47,6 +47,11 @@ PMatrix initMatix(int rows, int columns)
     return matrix;
 }
 
+/**
+ * 打印矩阵
+ * @param matrix 矩阵
+ * @return 无
+ */
 void printMatrix(PMatrix matrix)
 {
     for (size_t i = 0; i < matrix->rows; i++)

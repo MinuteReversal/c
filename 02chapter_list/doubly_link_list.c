@@ -128,6 +128,9 @@ void removeNode(PNode node)
     }
 }
 
+/**
+ * 通过值删除
+ */
 void removeByValue(PNode head, int value)
 {
     for (PNode node = head; node; node = node->next)
@@ -140,6 +143,9 @@ void removeByValue(PNode head, int value)
     }
 }
 
+/**
+ * 打印单个节点
+ */
 void printNode(PNode node)
 {
     printf("%d,", node->value);

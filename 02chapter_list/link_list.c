@@ -179,6 +179,10 @@ void removeByValue(PNode head, int value)
     }
 }
 
+/**
+ *  打印单个节点
+ * @param node 节点
+ */
 void printNode(PNode node)
 {
     printf("%d,", *node);

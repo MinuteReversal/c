@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <malloc.h>
-#define MAX_List_LENGTH 100
+#define MAX_LIST_LENGTH 100
 
 typedef struct _List
 {
-    int array[MAX_List_LENGTH];
+    int array[MAX_LIST_LENGTH];
     int length;
 } List, *PList;
 
