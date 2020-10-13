@@ -9,9 +9,10 @@
 int main(int argc, char const *argv[])
 {
     int n = 8;
+    int temp = 0;
     int r[] = {0, 42, 36, 56, 78, 67, 11, 27, 36};
     int i, j;
-    for (i = 2; i <= n; i++)
+    for (i = 1; i <= n; i++)
     {
         if (r[i] < r[i - 1])
         {
