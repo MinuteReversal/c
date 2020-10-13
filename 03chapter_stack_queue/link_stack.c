@@ -12,8 +12,8 @@
  */
 typedef struct _StackNode
 {
-    int value;
-    struct _StackNode *next;
+    int value;               //值
+    struct _StackNode *next; //嵌套
 } StackNode, *PStackNode;
 
 /**
@@ -31,17 +31,28 @@ PStackNode create(int value)
 
 /**
  * 入栈
+ * @param stack 栈
+ * @return 栈
  */
-PStackNode push(PStackNode stack, int value)
+PStackNode pushStack(PStackNode stack, int value)
 {
     PStackNode node = create(value);
-    stack->next = node;
+    if (stack)
+    {
+        node->next = stack;
+    }
     return node;
 }
 
-PStackNode pop(PStackNode stack, int *value)
+/**
+ * 出栈
+ * @param stack 栈
+ * @param value 出值
+ * 
+ */
+PStackNode popStack(PStackNode stack, int *value)
 {
-    if (stack->next != NULL)
+    if (stack != NULL)
     {
         PStackNode next = stack->next;
         *value = stack->value;
@@ -50,25 +61,29 @@ PStackNode pop(PStackNode stack, int *value)
     }
     return stack;
 }
-
+/**
+ * 栈空
+ * @param stack 栈
+ * @return 0 未空 1 已空 
+ */
 int isEmpty(PStackNode stack)
 {
-    return stack->next == NULL;
+    return stack == NULL;
 }
 
 int main(int argc, char const *argv[])
 {
-    PStackNode stack = create(-1); //栈顶
+    PStackNode stack = NULL; //栈
     for (size_t i = 0; i < 10; i++)
     {
         printf("push:%d\n", i);
-        stack = push(stack, i);
+        stack = pushStack(stack, i);
     }
 
+    int value;
     while (!isEmpty(stack))
     {
-        int value;
-        stack = pop(stack, &value);
+        stack = popStack(stack, &value);
         printf("pop:%d\n", value);
     }
 
