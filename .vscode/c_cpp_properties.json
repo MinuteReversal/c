@@ -9,6 +9,16 @@
       "cppStandard": "c++17",
       "intelliSenseMode": "gcc-x86",
       "compilerArgs": ["-lgdiplus", "-mwindows"]
+    },
+    {
+      "name": "Mac",
+      "includePath": ["${workspaceFolder}/**"],
+      "defines": ["_DEBUG", "UNICODE", "_UNICODE"],
+      "compilerPath": "/usr/bin/clang",
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "gcc-x86",
+      "compilerArgs": ["-lgdiplus", "-mwindows"]
     }
   ],
   "version": 4

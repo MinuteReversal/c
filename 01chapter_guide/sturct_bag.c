@@ -5,7 +5,7 @@
 * description : 面向对象示例
 ***************************************************************************** */
 #include <stdio.h>
-#include <malloc.h>
+#include <stdlib.h>
 
 typedef struct _Bag
 {
@@ -19,15 +19,15 @@ int main(int argc, char const *argv[])
 {
     //值类型
     Bag lvBag;
-    lvBag.brand = "lv";
-    lvBag.color = "red";
+    lvBag.brand = (char*)"lv";
+    lvBag.color = (char*)"red";
 
     //引用类型
     //   实例化           抽像
     //   对象      <=>    类
     PBag chanelBag = (PBag)malloc(sizeof(PBag));
-    chanelBag->brand = "chanel";
-    chanelBag->color = "white";
+    chanelBag->brand = (char*)"chanel";
+    chanelBag->color = (char*)"white";
 
     return 0;
 }

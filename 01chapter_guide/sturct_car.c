@@ -5,7 +5,7 @@
 * description : 面向对象
 ***************************************************************************** */
 #include <stdio.h>
-#include <malloc.h>
+#include <stdlib.h>
 
 typedef struct _Car
 {
