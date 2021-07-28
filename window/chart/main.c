@@ -14,7 +14,7 @@ void onPaint(HDC hdc)
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 //https://docs.microsoft.com/en-us/windows/win32/api/wingdi/
-int main(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
+int main(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLine, int nCmdShow)
 {
     wchar_t const *CLASS_NAME = L"Sample Window Class";
 
